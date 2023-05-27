@@ -1,4 +1,4 @@
-from Model.Text.Random import Random
+from Model.Story.Random import Random
 from Controller.Level.Level1 import Level1
 from Controller.Level.Level2 import Level2
 from Controller.Level.Level3 import Level3
@@ -17,7 +17,9 @@ class Controller:
         rand = Random()
         word = rand.random_word()
 
-        try:
-            method[self.level](word).execute()
-        except Exception as e:
-            print(f'{e} is not acceptable')
+        method[self.level](word).execute()
+
+        # try:
+        #     method[self.level](word).execute()
+        # except Exception as e:
+        #     print(f'{e} is not acceptable')
