@@ -16,7 +16,20 @@ class Level1:
         with open('Model\Story\Level1\Main\Scene1.txt', encoding='utf8') as f:
             file_contents = f.read()
             print (file_contents)
+        self.gate_select()
 
+    def scene_2(self):
+        with open('Model\Story\Level1\Main\Scene2.txt', encoding='utf8') as f:
+            file_contents = f.read()
+            print (file_contents)
+        self.gate_select()
+
+    def scene_3(self):
+        with open('Model\Story\Level1\Main\Scene3.txt', encoding='utf8') as f:
+            file_contents = f.read()
+            print (file_contents)
+
+    def gate_select(self):
         print('請選擇你第一個要走的門(倒數60秒)：')
         print('1.「真實」之門')
         print('2.「虛幻」之門')
@@ -43,19 +56,9 @@ class Level1:
             else:
                 print('Unknown Choose')
 
-    def scene_2(self):
-        with open('Model\Story\Level1\Main\Scene2.txt', encoding='utf8') as f:
-            file_contents = f.read()
-            print (file_contents)
-
-    def scene_3(self):
-        with open('Model\Story\Level1\Main\Scene3.txt', encoding='utf8') as f:
-            file_contents = f.read()
-            print (file_contents)
-
     def execute(self):
         self.scene_1()
-        # self.scene_2()
+        self.scene_2()
         # self.scene_3()
 
         # ciphertext = SubstitutionCodec().encoder(self.word, self.key)
