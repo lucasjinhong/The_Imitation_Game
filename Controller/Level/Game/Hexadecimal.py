@@ -1,13 +1,13 @@
+from Controller.Tools.PrintContent import PrintContent
 import random
 
 class Hexadecimal:
-    def __init__(self):
-        pass
+    def __init__(self, skip):
+        self.skip = skip
 
     def before_scene(self):
-        with open('Model\Story\Level1\Hexadecimal\BeforeScene.txt', encoding='utf8') as f:
-            file_contents = f.read()
-            print (file_contents)
+        path = 'Model\Story\Level1\Hexadecimal\BeforeScene.txt'
+        PrintContent(path, self.skip).execute()
 
     def question_1(self):
         answer = random.randint(1,65535)
@@ -56,17 +56,17 @@ class Hexadecimal:
                 print(res)
                 print(f'正確答案是：{answer_bin}\n')
 
-        print('''你覺得應該結束了，十六進制應該就這樣了，
-              \n把十六進制轉成十進制，把十進制轉成十六進制，
-              \n最重要的應該就是這兩個觀念，
-              \n但這時，螢幕上出現了第三題：\n''')
+        print('你覺得應該結束了，十六進制應該就這樣了，')
+        print('把十六進制轉成十進制，把十進制轉成十六進制，')
+        print('最重要的應該就是這兩個觀念，')
+        print('但這時，螢幕上出現了第三題：\n')
 
     def question_3(self):
         retry = 0
         print('[第三關]')
         print('請問 1 + 1 = ？\n')
 
-        for chance in range(5):
+        for chance in range(3):
             res = input('你心想，這個問題這麼簡單，毫不猶豫的輸入答案：')
 
             if res == '2':
@@ -75,7 +75,7 @@ class Hexadecimal:
             else:
                 print('機器人：「答案錯誤。」\n')
 
-            if chance == 4:
+            if chance == 2:
                 print('機器人：「我看你是完全不懂喔。」')
                 print('機器人：「從第一關開始吧。」\n')
                 retry = 1
@@ -83,9 +83,8 @@ class Hexadecimal:
         return retry
 
     def after_scene(self):
-        with open('Model\Story\Level1\Hexadecimal\AfterScene.txt', encoding='utf8') as f:
-            file_contents = f.read()
-            print (file_contents)
+        path = 'Model\Story\Level1\Hexadecimal\AfterScene.txt'
+        PrintContent(path, self.skip).execute()
 
     def execute(self):
         self.before_scene()

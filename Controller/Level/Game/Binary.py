@@ -1,13 +1,13 @@
+from Controller.Tools.PrintContent import PrintContent
 import random
 
 class Binary:
-    def __init__(self):
-        pass
+    def __init__(self, skip):
+        self.skip = skip
 
     def before_scene(self):
-        with open('Model\Story\Level1\Binary\BeforeScene.txt', encoding='utf8') as f:
-            file_contents = f.read()
-            print (file_contents)
+        path = 'Model\Story\Level1\Binary\BeforeScene.txt'
+        PrintContent(path, self.skip).execute()
 
     def question_1(self):
         answer = random.randint(1,256)
@@ -66,7 +66,7 @@ class Binary:
         print('[第三關]')
         print('請問 1 + 1 = ？\n')
 
-        for chance in range(5):
+        for chance in range(3):
             res = input('你心想，這個問題這麼簡單，毫不猶豫的輸入答案：')
 
             if res == '10':
@@ -75,7 +75,7 @@ class Binary:
             else:
                 print('機器人：「答案錯誤。」\n')
 
-            if chance == 4:
+            if chance == 2:
                 print('機器人：「我看你是完全不懂喔。」')
                 print('機器人：「從第一關開始吧。」\n')
                 retry = 1
@@ -83,9 +83,8 @@ class Binary:
         return retry
 
     def after_scene(self):
-        with open('Model\Story\Level1\Binary\AfterScene.txt', encoding='utf8') as f:
-            file_contents = f.read()
-            print (file_contents)
+        path = 'Model\Story\Level1\Binary\AfterScene.txt'
+        PrintContent(path, self.skip).execute()
 
     def execute(self):
         self.before_scene()
