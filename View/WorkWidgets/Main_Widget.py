@@ -1,8 +1,7 @@
-if __name__ == "__main__":
-    import sys, os
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
+import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 from Function.Story import Story
 from WorkWidgets.Dialog import Dialog
 from random import uniform
@@ -13,65 +12,75 @@ class Main_Widget(QtWidgets.QWidget):
 
     def __init__(self, username="you", story_index=1):
         super().__init__()
-        self.setObjectName("ui_3")
+        self.setObjectName("main_widget")
         self.username = username
         self.story_index = story_index
         self.story = Story()
         self.typing = False
         self.paragraph_index = 0
         self.current_text = ''
+        self.image_base_path = "story/story1"
+        self.setup_ui()
+        self.execute()
 
-        # Timer
+    def setup_ui(self):
+        self.setup_fonts()
+        self.setup_timer()
+        self.setup_buttons()
+        self.setup_screen()
+        self.setup_textEdit()
+        self.setup_scrollArea()
+        QtCore.QMetaObject.connectSlotsByName(self)
+
+    def setup_fonts(self):
+        self.font_button = QtGui.QFont()
+        self.font_button.setFamily("Arial")
+        self.font_button.setPointSize(16)
+        self.font_editor = QtGui.QFont()
+        self.font_editor.setFamily("Arial")
+        self.font_editor.setPointSize(20)
+
+    def setup_timer(self):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_text)
         self.text_to_type = ""
         self.current_text = ""
 
-        font_16 = QtGui.QFont()
-        font_16.setFamily("Arial")
-        font_16.setPointSize(16)
-        font_20 = QtGui.QFont()
-        font_20.setFamily("Arial")
-        font_20.setPointSize(20)
+    def setup_buttons(self):
+        self.button_back = self.create_button(10, 445, 120, 35, "Button_Back", "回到主選單", self.button_back_click)
+        self.button_help = self.create_button(830, 50, 100, 35, "Button_Help", "Help", self.button_help_click)
+        self.button_conti = self.create_button(830, 330, 100, 35, "Button_Cont", "繼續", self.button_conti_click)
+        self.button_enter = self.create_button(830, 395, 100, 35, "Button_Enter", "Enter", self.button_enter_click)
 
-        self.button_back = QtWidgets.QPushButton(self)
-        self.button_back.setGeometry(QtCore.QRect(10, 445, 120, 35))
-        self.button_back.setFont(font_16)
-        self.button_back.setObjectName("Button_Back")
-        self.button_back.setText("回到主選單")
-        self.button_back.clicked.connect(self.button_back_click)
+    def create_button(self, x, y, width, height, obj_name, text, slot_function):
+        button = QtWidgets.QPushButton(self)
+        button.setGeometry(QtCore.QRect(x, y, width, height))
+        button.setFont(self.font_button)
+        button.setObjectName(obj_name)
+        button.setText(text)
+        button.clicked.connect(slot_function)
+        return button
 
-        self.button_enter = QtWidgets.QPushButton(self)
-        self.button_enter.setGeometry(QtCore.QRect(830, 395, 100, 35))
-        self.button_enter.setFont(font_16)
-        self.button_enter.setObjectName("Button_Enter")
-        self.button_enter.setText("Enter")
-        self.button_enter.clicked.connect(self.button_enter_click)
+    def setup_screen(self):
+        self.screen = QtWidgets.QLabel(self)
+        self.screen.setGeometry(QtCore.QRect(800, 100, 175, 200))
+        self.screen.setFont(self.font_button)
+        self.screen.setObjectName("Screen")
+        self.screen.setText("I'm Screen")
+        self.screen.setStyleSheet("border: 1px solid black;")
 
-        self.button_coti = QtWidgets.QPushButton(self)
-        self.button_coti.setGeometry(QtCore.QRect(830, 330, 100, 35))
-        self.button_coti.setFont(font_16)
-        self.button_coti.setObjectName("Button_Cont")
-        self.button_coti.setText("繼續")
-        self.button_coti.clicked.connect(self.button_coti_click)
-
-        self.button_help = QtWidgets.QPushButton(self)
-        self.button_help.setGeometry(QtCore.QRect(830, 50, 100, 35))
-        self.button_help.setFont(font_16)
-        self.button_help.setObjectName("Button_Help")
-        self.button_help.setText("Help")
-        self.button_help.clicked.connect(self.button_help_click)
-
+    def setup_textEdit(self):
         self.textEdit = QtWidgets.QTextEdit(self)
         self.textEdit.setGeometry(QtCore.QRect(120, 390, 661, 45))
-        self.textEdit.setFont(font_20)
+        self.textEdit.setFont(self.font_editor)
         self.textEdit.setObjectName("textEdit")
 
+    def setup_scrollArea(self):
         self.scrollArea = QtWidgets.QScrollArea(self)
         self.scrollArea.setGeometry(QtCore.QRect(120, 40, 661, 321))
         self.scrollArea.setWidgetResizable(True)
         self.label = QtWidgets.QLabel(self)
-        self.label.setFont(font_16)
+        self.label.setFont(self.font_button)
         self.label.setText("")
         self.label.setGeometry(QtCore.QRect(0, 0, 651, 311))
         self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
@@ -79,25 +88,29 @@ class Main_Widget(QtWidgets.QWidget):
         self.label.setWordWrap(True)
         self.scrollArea.setWidget(self.label)
 
-        QtCore.QMetaObject.connectSlotsByName(self)
-
-        #測試
-        self.execute()
-
     def execute(self):
-        self.label.setText(f"{self.username} 你好，你選擇的是{self.story.get(self.story_index)}，請按繼續，開始你的冒險。")
+        self.label.setText(f"{self.username} 你好，你選擇的是{self.story.get(self.story_index)}，請按「繼續」，開始你的冒險。")
 
-    def button_back_click(self):
-        self.back_window.emit()
+    def button_back_click(self): # 加上確定要回到主選單嗎？
+        confirm_box = QMessageBox()
+        confirm_box.setIcon(QMessageBox.Question)
+        confirm_box.setWindowTitle("確認")
+        confirm_box.setText("確定要回到主選單嗎？(目前的遊玩進度將會消失)")
+        confirm_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        confirm_box.setDefaultButton(QMessageBox.No)
+        reply = confirm_box.exec()
 
-    def button_help_click(self):
+        if reply == QMessageBox.Yes:
+            self.back_window.emit()
+
+    def button_help_click(self): # TODO
         dlg = Dialog("測試: 非霖不投", "為什麼你要點這個按鈕呢???")
         dlg.exec()
 
     def button_enter_click(self):
         self.textEdit.setText('')
 
-    def button_coti_click(self):
+    def button_conti_click(self):
         if self.typing and self.text_to_type:  # 確保 self.text_to_type 不為空
             self.current_text += self.text_to_type
             self.text_to_type = ""
@@ -105,7 +118,8 @@ class Main_Widget(QtWidgets.QWidget):
             self.typing = False
             QtCore.QTimer.singleShot(10, self.scroll_to_bottom)  # delay 10 毫秒到底部，讓點繼續時，也可以直接跳到最底部
         else:
-            with open('Scene1_test.txt', 'r', encoding='utf-8') as f:
+            story_file = os.path.join(self.image_base_path, "scene1_test.txt")
+            with open(story_file, 'r', encoding='utf-8') as f:
                 self.story_text = f.read()
             self.paragraphs_to_type = self.story_text.split("\n\n")
             if self.paragraph_index < len(self.paragraphs_to_type):
@@ -115,6 +129,14 @@ class Main_Widget(QtWidgets.QWidget):
                 self.text_to_type = ""
             self.timer.start(100)
             self.typing = True
+
+        image_path = os.path.join(self.image_base_path, f"img_{self.paragraph_index}.jpg")
+        if os.path.exists(image_path):
+            self.screen.setPixmap(QtGui.QPixmap(image_path))
+            self.screen.setScaledContents(True)
+        else:
+            self.screen.clear()
+
 
     def update_text(self):
         if self.text_to_type:
@@ -135,12 +157,3 @@ class Main_Widget(QtWidgets.QWidget):
         # 讓點下「繼續」時，滾動區域「也」可以滾動到底部
         scrollbar = self.scrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
-
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    main_window = Main_Widget()
-    main_window.setFixedSize(1000, 500)
-    main_window.show()
-    sys.exit(app.exec_())

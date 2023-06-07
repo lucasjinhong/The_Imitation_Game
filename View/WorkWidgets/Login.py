@@ -1,7 +1,3 @@
-if __name__ == "__main__":
-    import sys, os
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from WorkWidgets.Dialog import Dialog
 
@@ -10,43 +6,55 @@ class Login(QtWidgets.QWidget):
 
     def __init__(self):
         super().__init__()
-        self.setObjectName("ui_1")
+        self.setObjectName("login")
+        self.setup_ui()
 
+    def setup_ui(self):
+        font_label = self.create_font("Arial", 20)
+        font_button = self.create_font("Arial", 20)
+        font_title = self.create_font("Arial", 108)
+
+        self.label_image = self.create_label(250, 0, 500, 500, "label_Image", None, image_path="./Resource/login_door")
+        self.title1 = self.create_label(70, 10, 200, 200, "title1", "模", font_title)
+        self.title2 = self.create_label(70, 260, 200, 200, "title2", "仿", font_title)
+        self.title3 = self.create_label(820, 10, 200, 200, "title3", "遊", font_title)
+        self.title4 = self.create_label(820, 260, 200, 200, "title4", "戲", font_title)
+        self.label = self.create_label(170, 400, 210, 40, "label", "使用者名稱", font_label)
+        self.textEdit = self.create_text_edit(390, 400, 200, 35, "textEdit", font_label)
+
+        self.button_confirm = QtWidgets.QPushButton(self)
+        self.button_confirm.setGeometry(QtCore.QRect(640, 400, 100, 35))
+        self.button_confirm.setFont(font_button)
+        self.button_confirm.setObjectName("button_confirm")
+        self.button_confirm.setText("確定")
+        self.button_confirm.clicked.connect(self.button_click)
+
+    def create_font(self, family, size):
         font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(20)
-        font1 = QtGui.QFont()
-        font1.setFamily("Arial")
-        font1.setPointSize(16)
+        font.setFamily(family)
+        font.setPointSize(size)
+        return font
 
-        self.label_image = QtWidgets.QLabel(self)
-        self.label_image.setGeometry(QtCore.QRect(0, 0, 1000, 500)) # 如果換圖片，要改這邊
-        self.label_image.setObjectName("label_Image")
-        self.label_image.setScaledContents(True)
-        pixmap = QtGui.QPixmap("./Resource/Designer.png") # 設定要放什麼圖片
-        scaled_pixmap = pixmap.scaled(self.label_image.size(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
-        self.label_image.setPixmap(scaled_pixmap)
+    def create_label(self, x, y, width, height, obj_name, text, font=None, image_path=None):
+        label = QtWidgets.QLabel(self)
+        label.setGeometry(QtCore.QRect(x, y, width, height))
+        label.setObjectName(obj_name)
+        if text:
+            label.setText(text)
+        if font:
+            label.setFont(font)
+        if image_path:
+            pixmap = QtGui.QPixmap(image_path)
+            scaled_pixmap = pixmap.scaled(label.size(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+            label.setPixmap(scaled_pixmap)
+        return label
 
-        self.label = QtWidgets.QLabel(self)
-        self.label.setGeometry(QtCore.QRect(170, 400, 210, 40))
-        self.label.setFont(font1)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.label.setText("使用者名稱")
-
-        self.textEdit = QtWidgets.QTextEdit(self)
-        self.textEdit.setGeometry(QtCore.QRect(390, 400, 200, 35))
-        self.textEdit.setFont(font)
-        self.textEdit.setObjectName("textEdit")
-
-        self.button = QtWidgets.QPushButton(self)
-        self.button.setGeometry(QtCore.QRect(640, 400, 100, 35))
-        self.button.setFont(font)
-        self.button.setObjectName("button")
-        self.button.setText("確定")
-        self.button.clicked.connect(self.button_click)
-
-        QtCore.QMetaObject.connectSlotsByName(self)
+    def create_text_edit(self, x, y, width, height, obj_name, font):
+        textEdit = QtWidgets.QTextEdit(self)
+        textEdit.setGeometry(QtCore.QRect(x, y, width, height))
+        textEdit.setFont(font)
+        textEdit.setObjectName(obj_name)
+        return textEdit
 
     def button_click(self):
         if len(self.textEdit.toPlainText()) > 0:
@@ -57,10 +65,3 @@ class Login(QtWidgets.QWidget):
 
     def show_menu(self):
         self.switch_window.emit(self.textEdit.toPlainText())
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    main_window = Login()
-    main_window.setFixedSize(1000, 500)
-    main_window.show()
-    sys.exit(app.exec_())
