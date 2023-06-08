@@ -1,7 +1,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from Function.Story import Story
+from View.Function.Story import Story
 
 class Menu(QtWidgets.QWidget):
     switch_window = QtCore.pyqtSignal(int) # 換到Main_Widget要用的

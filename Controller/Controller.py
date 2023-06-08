@@ -1,25 +1,19 @@
-from Model.Story.Random import Random
-from Controller.Level.Level1 import Level1
-from Controller.Level.Level2 import Level2
-from Controller.Level.Level3 import Level3
+from Controller.Tools.PrintContent import PrintContent
+from Controller.Codec.BinaryCodec import BinaryCodec
+from Controller.Codec.HexadecimalCodec import HexadecimalCodec
+from Controller.Codec.FutureCodec import FutureCodec
 
 class Controller:
-    def __init__(self, level):
-        self.level = level
+    def tools(path):
+        return PrintContent(path).execute()
 
-    def execute(self):
-        method = {
-            '1': Level1,
-            '2': Level2,
-            '3': Level3
+    def codec(function):
+        codec = {
+            'dec_to_bin': BinaryCodec.dec_to_bin,
+            'bin_to_dec': BinaryCodec.bin_to_dec,
+            'dec_to_hex': HexadecimalCodec.dec_to_hex,
+            'hex_to_dec': HexadecimalCodec.hex_to_dec,
+            'future': FutureCodec.future_codec
         }
 
-        rand = Random()
-        word = rand.random_word()
-
-        method[self.level](word).execute()
-
-        # try:
-        #     method[self.level](word).execute()
-        # except Exception as e:
-        #     print(f'{e} is not acceptable')
+        return codec[function]()

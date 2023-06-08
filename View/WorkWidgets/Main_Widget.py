@@ -1,11 +1,11 @@
-
 import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from Function.Story import Story
-from WorkWidgets.Dialog import Dialog
+from View.Function.Story import Story
+from View.WorkWidgets.Dialog import Dialog
 from random import uniform
-
+from View.Story.Level1 import Level1
+from View.Story.Controller import Controller
 
 class Main_Widget(QtWidgets.QWidget):
     back_window = QtCore.pyqtSignal()
@@ -19,9 +19,40 @@ class Main_Widget(QtWidgets.QWidget):
         self.typing = False
         self.paragraph_index = 0
         self.current_text = ''
-        self.image_base_path = "story/story1"
+        self.image_base_path = "Story/story1"
         self.setup_ui()
         self.execute()
+
+        #init
+        self.text = ''
+        self.button_enter.setEnabled(False)
+        self.parameters = {
+            'function': 'scene_select',
+            'parameters': {
+                'Level': '1',
+                'Scene': '1'
+            },
+            'parameters_game': {
+                'question': {
+                    'response': '',
+                    'correct': '',
+                    'wrong': '',
+                    'answer': '',
+                    'hint': '',
+                    'solution': ''
+                },
+                'config': {
+                    'chance': 0,
+                    'retry': 0
+                }
+            },                 
+            'config': {
+                'next_choose': '',
+                'label': self.label,
+                'button_enter': self.button_enter,
+                'button_conti': self.button_conti
+            }     
+        }
 
     def setup_ui(self):
         self.setup_fonts()
@@ -107,36 +138,75 @@ class Main_Widget(QtWidgets.QWidget):
         dlg = Dialog("測試: 非霖不投", "為什麼你要點這個按鈕呢???")
         dlg.exec()
 
+    def gate_select(self):
+        gate = {
+            '1': 'binary',
+            '2': 'hexadecimal'
+        }
+        
+        resp = self.textEdit.toPlainText()
+
+        self.parameters['parameters']['Level'] = gate[resp]
+        self.parameters['function'] = 'scene_select'
+
+        if resp == '1':
+            self.parameters['config']['next_choose'] = gate['2']
+        elif resp == '2':
+            self.parameters['config']['next_choose'] = gate['1']
+
+        self.button_enter.setEnabled(False)
+        self.button_conti.setEnabled(True)
+
+        self.text += f'\n你選擇的是{resp}\n'
+        self.text += f'請點擊繼續鍵繼續\n\n'
+        self.label.setText(self.text)
+
+    def question_select(self):
+        resp = self.textEdit.toPlainText()
+        self.parameters['parameters_game']['question']['response'] = resp
+
+        self.parameters, self.text = Controller(self.parameters, self.text).question_select()
+
     def button_enter_click(self):
-        self.textEdit.setText('')
+        function = {
+            'gate_select': self.gate_select,
+            'scene_select': self.question_select
+        }
+
+        function[self.parameters['function']]()
 
     def button_conti_click(self):
-        if self.typing and self.text_to_type:  # 確保 self.text_to_type 不為空
-            self.current_text += self.text_to_type
-            self.text_to_type = ""
-            self.label.setText(self.current_text)
-            self.typing = False
-            QtCore.QTimer.singleShot(10, self.scroll_to_bottom)  # delay 10 毫秒到底部，讓點繼續時，也可以直接跳到最底部
-        else:
-            story_file = os.path.join(self.image_base_path, "scene1_test.txt")
-            with open(story_file, 'r', encoding='utf-8') as f:
-                self.story_text = f.read()
-            self.paragraphs_to_type = self.story_text.split("\n\n")
-            if self.paragraph_index < len(self.paragraphs_to_type):
-                self.text_to_type = self.paragraphs_to_type[self.paragraph_index] + "\n\n"
-                self.paragraph_index += 1
-            else:
-                self.text_to_type = ""
-            self.timer.start(100)
-            self.typing = True
+        self.parameters, self.text = Controller(self.parameters, self.text).scene_select()
+        QtCore.QTimer.singleShot(10, self.scroll_to_bottom)
 
-        image_path = os.path.join(self.image_base_path, f"img_{self.paragraph_index}.jpg")
-        if os.path.exists(image_path):
-            self.screen.setPixmap(QtGui.QPixmap(image_path))
-            self.screen.setScaledContents(True)
-        else:
-            self.screen.clear()
+        # if self.typing and self.text_to_type:  # 確保 self.text_to_type 不為空
+        #     print(self.text_to_type)
+        #     self.current_text += self.text_to_type
+        #     self.text_to_type = ""
+        #     self.label.setText(self.current_text)
+        #     self.typing = False
+        #     QtCore.QTimer.singleShot(10, self.scroll_to_bottom)  # delay 10 毫秒到底部，讓點繼續時，也可以直接跳到最底部
+        # else:
+        #     story_file = os.path.join(self.image_base_path, "scene1_test.txt")
+        #     with open(story_file, 'r', encoding='utf-8') as f:
+        #         self.story_text = f.read()
+        #     self.paragraphs_to_type = self.story_text.split("\n\n")
 
+        #     if self.paragraph_index < len(self.paragraphs_to_type):
+        #         self.text_to_type = self.paragraphs_to_type[self.paragraph_index] + "\n\n"
+        #         self.paragraph_index += 1
+        #     else:
+        #         self.text_to_type = ""
+
+        #     self.timer.start(100)
+        #     self.typing = True
+
+        # image_path = os.path.join(self.image_base_path, f"img_{self.paragraph_index}.jpg")
+        # if os.path.exists(image_path):
+        #     self.screen.setPixmap(QtGui.QPixmap(image_path))
+        #     self.screen.setScaledContents(True)
+        # else:
+        #     self.screen.clear()
 
     def update_text(self):
         if self.text_to_type:
@@ -152,8 +222,14 @@ class Main_Widget(QtWidgets.QWidget):
             self.timer.stop()
             self.typing = False
 
-
     def scroll_to_bottom(self):
         # 讓點下「繼續」時，滾動區域「也」可以滾動到底部
         scrollbar = self.scrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    main_window = Main_Widget()
+    main_window.setFixedSize(1000, 500)
+    main_window.show()
+    sys.exit(app.exec_())

@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from WorkWidgets.Dialog import Dialog
+from View.WorkWidgets.Dialog import Dialog
 
 class Login(QtWidgets.QWidget):
     switch_window = QtCore.pyqtSignal(str)

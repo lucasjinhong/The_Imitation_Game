@@ -1,25 +1,49 @@
-from Controller.Controller import Controller
+import sys
+from PyQt5 import QtWidgets, sip
+from View.WorkWidgets.Login import Login
+from View.WorkWidgets.Menu import Menu
+from View.WorkWidgets.Main_Widget import Main_Widget
 
-def print_menu():
-    print()
-    print("1. Level1 ")
-    print("2. Level2 ")
-    print("3. Level3 ")
-    print("or 'exit' to leave ")
-    print()
+class Controller:
+    def __init__(self):
+        self.username = ""
 
-    level = input("Please select the level(number): ")
+    def show_login(self):
+        self.login = Login()
+        self.login.setFixedSize(1000, 500)
+        self.login.setWindowTitle("Final Project")
+        self.login.switch_window.connect(self.show_menu)
+        self.login.show()
 
-    return level
+    def show_menu(self, text):
+        self.username = text
+        self.menu = Menu()
+        self.menu.setFixedSize(1000, 500)
+        self.menu.setWindowTitle("Final Project")
+        self.menu.switch_window.connect(self.show_main)
+        self.menu.back_window.connect(self.show_login_from_menu)
+        self.login.close()
+        self.menu.show()
 
-def main():
-    while True:
-        level = print_menu()
+    def show_main(self, index):
+        self.main = Main_Widget(self.username, index)
+        self.main.setFixedSize(1000, 500)
+        self.main.setWindowTitle("Final Project")
+        self.main.back_window.connect(self.show_menu_from_main)
+        self.menu.close()
+        self.main.show()
 
-        if level == "exit":
-            break
-        else:
-            Controller(level).execute()
+    def show_login_from_menu(self): # 從menu回到login
+        self.menu.close()
+        self.show_login()
 
-if __name__ == '__main__':
-    main()
+    def show_menu_from_main(self): # 從main回到menu
+        self.main.close()
+        self.show_menu(self.username)
+
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    controller = Controller()
+    controller.show_login()
+    sys.exit(app.exec_())
