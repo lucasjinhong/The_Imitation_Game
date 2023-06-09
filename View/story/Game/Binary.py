@@ -26,7 +26,7 @@ class Binary:
 
         self.text += '\n[第一關]\n'
         self.text += f'若一串二進制數字為{answer_bin}，它代表的十進制數字是多少？\n'
-    
+
         self.parameters['parameters'] = {
             'Level': 'binary',
             'Scene': '2'
@@ -37,13 +37,13 @@ class Binary:
                 'correct': '恭喜你\n',
                 'wrong': '答案錯誤\n',
                 'answer': answer_dec,
-                'hint': 'hint：每左移一個數字，就是前一個數字的兩倍\n',
+                'hint': '提示：每左移一個數字，就是前一個數字的兩倍\n',
                 'solution': f'正確答案是：{answer_dec}\n'
             },
             'config': {
                 'chance': 5,
                 'retry': 0
-            }                  
+            }
         }
 
         return self.parameters, self.text
@@ -67,13 +67,13 @@ class Binary:
                 'correct': '恭喜你\n',
                 'wrong': '答案錯誤\n',
                 'answer': answer_bin,
-                'hint': 'hint：反覆除以2，看餘數，並反向排列所有的餘數\n',
+                'hint': '提示：反覆除以2，看餘數，並反向排列所有的餘數\n',
                 'solution': f'正確答案是：{answer_bin}\n'
             },
             'config': {
                 'chance': 5,
                 'retry': 0
-            }                  
+            }
         }
 
         return self.parameters, self.text
@@ -106,7 +106,7 @@ class Binary:
             'config': {
                 'chance': 3,
                 'retry': 1
-            }                
+            }
         }
 
         return self.parameters, self.text

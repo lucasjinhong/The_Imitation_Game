@@ -52,6 +52,7 @@ class Controller:
         answer = question['answer']
         solution = question['solution']
 
+        print(response, answer) # 這邊下面的程式碼有問題
         if response == answer:
             self.text += question['correct']
             self.parameters['config']['button_enter'] = False
@@ -66,7 +67,7 @@ class Controller:
                 self.text += solution
                 self.parameters['config']['button_enter'] = False
                 self.parameters['config']['button_conti'] = True
-                
+
             elif chance <= 3:
                 self.text += question['hint']
 

@@ -75,10 +75,10 @@ class Level1:
             'config': {
                 'chance': 5,
                 'retry': 0
-            }                  
+            }
         }
 
-        hint = 'hint：\n'
+        hint = '提示：\n'
         hint += '1.結果會是6個英文字\n'
         hint += '2.英文數字對應表\n'
         hint += '--------------------------------------------------------------------------------\n'
@@ -90,7 +90,7 @@ class Level1:
 
         return self.parameters, self.text
 
-    def after_scene(self): 
+    def after_scene(self):
         path = 'Model/Story/Level1/Main/AfterScene.txt'
         answer = self.parameters['parameters_game']['question']['answer']
 
@@ -107,3 +107,4 @@ class Level1:
             self.text += '\n請選擇你第一個要走的門(倒數60秒)：\n'
             self.text += '1.「真實」之門\n'
             self.text += '2.「虛幻」之門\n'
+            self.text += '(請輸入數字1或2)\n'

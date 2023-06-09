@@ -46,7 +46,7 @@ class Main_Widget(QtWidgets.QWidget):
                     'chance': 0,
                     'retry': 0
                 }
-            },                 
+            },
             'config': {
                 'next_choose': '',
                 'button_enter': True,
@@ -106,6 +106,12 @@ class Main_Widget(QtWidgets.QWidget):
         self.textEdit.setFont(self.font_editor)
         self.textEdit.setObjectName("textEdit")
 
+        def clear_textEdit(event): # 讓點擊textEdit時，自動清除內容
+            self.textEdit.clear()
+            QtWidgets.QTextEdit.mousePressEvent(self.textEdit, event)
+
+        self.textEdit.mousePressEvent = clear_textEdit
+
     def setup_scrollArea(self):
         self.scrollArea = QtWidgets.QScrollArea(self)
         self.scrollArea.setGeometry(QtCore.QRect(120, 40, 661, 321))
@@ -143,7 +149,7 @@ class Main_Widget(QtWidgets.QWidget):
             '1': 'binary',
             '2': 'hexadecimal'
         }
-        
+
         resp = self.textEdit.toPlainText()
 
         self.parameters['parameters']['Level'] = gate[resp]
@@ -155,7 +161,7 @@ class Main_Widget(QtWidgets.QWidget):
             self.parameters['config']['next_choose'] = gate['1']
 
         text = f'你選擇的是{resp}\n'
-        text += f'請點擊繼續鍵繼續'
+        text += f'請點擊「繼續」鍵繼續'
 
         self.parameters['config']['button_enter'] = False
         self.parameters['config']['button_conti'] = True

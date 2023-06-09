@@ -15,10 +15,10 @@ class Binary:
 
         print('[第一關]')
         print(f'若一串二進制數字為{answer_bin}，它代表的十進制數字是多少？\n')
-        
+
         for chance in range(5):
             if chance >= 3:
-                print('hint：每左移一個數字，就是前一個數字的兩倍')
+                print('提示：每左移一個數字，就是前一個數字的兩倍')
 
             res = input('請輸入你的答案:')
 
@@ -36,13 +36,13 @@ class Binary:
     def question_2(self):
         answer = random.randint(1,256)
         answer_bin = format(answer, '08b')
-        
+
         print('[第二關]')
         print(f'若一串十進制數字為{answer}，它代表的二進制數字是多少？\n')
-        
+
         for chance in range(5):
             if chance >= 3:
-                print('hint：反覆除以2，看餘數，並反向排列所有的餘數')
+                print('提示：反覆除以2，看餘數，並反向排列所有的餘數')
 
             res = input('請輸入你的答案:')
 

@@ -14,11 +14,8 @@ class Login(QtWidgets.QWidget):
         font_button = self.create_font("Arial", 20)
         font_title = self.create_font("Arial", 108)
 
-        self.label_image = self.create_label(250, 0, 500, 500, "label_Image", None, image_path="View/Resource/login_door")
-        self.title1 = self.create_label(70, 10, 200, 200, "title1", "模", font_title)
-        self.title2 = self.create_label(70, 260, 200, 200, "title2", "仿", font_title)
-        self.title3 = self.create_label(820, 10, 200, 200, "title3", "遊", font_title)
-        self.title4 = self.create_label(820, 260, 200, 200, "title4", "戲", font_title)
+        self.label_image = self.create_label(0, 0, 1000, 500, "label_Image", None, image_path="./View/Resource/login/login")
+        self.title = self.create_label(170, 20, 700, 200, "title", "模 仿 遊 戲", font_title)
         self.label = self.create_label(170, 400, 210, 40, "label", "使用者名稱", font_label)
         self.textEdit = self.create_text_edit(390, 400, 200, 35, "textEdit", font_label)
 
@@ -40,10 +37,13 @@ class Login(QtWidgets.QWidget):
         label.setGeometry(QtCore.QRect(x, y, width, height))
         label.setObjectName(obj_name)
         if text:
-            label.setText(text)
+            formatted_text = f"<pre>{text}</pre>"
+            label.setText(formatted_text)
         if font:
             label.setFont(font)
         if image_path:
+            label.setAlignment(QtCore.Qt.AlignCenter)
+            label.setScaledContents(True)
             pixmap = QtGui.QPixmap(image_path)
             scaled_pixmap = pixmap.scaled(label.size(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
             label.setPixmap(scaled_pixmap)

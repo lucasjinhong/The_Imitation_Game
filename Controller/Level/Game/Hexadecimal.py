@@ -15,10 +15,10 @@ class Hexadecimal:
 
         print('[第一關]')
         print(f'若一串十六進制數字為{answer_hex}，它代表的十進制數字是多少？\n')
-        
+
         for chance in range(5):
             if chance >= 3:
-                print('hint：每位數的十六進制數字都對應到一個0至15的十進制數字，並且每向左移一位，其值就增加16倍。')
+                print('提示：每位數的十六進制數字都對應到一個0至15的十進制數字，並且每向左移一位，其值就增加16倍。')
 
             res = input('請輸入你的答案:')
 
@@ -36,13 +36,13 @@ class Hexadecimal:
     def question_2(self):
         answer = random.randint(1,256)
         answer_bin = format(answer, '04x')
-        
+
         print('[第二關]')
         print(f'若一串十進制數字為{answer}，它代表的十六進制數字是多少？\n')
-        
+
         for chance in range(5):
             if chance >= 3:
-                print('hint：反覆除以16，看餘數，並反向排列所有的餘數')
+                print('提示：反覆除以16，看餘數，並反向排列所有的餘數')
 
             res = input('請輸入你的答案:')
 
