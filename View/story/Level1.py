@@ -5,12 +5,9 @@ from View.Story.Game.Hexadecimal import Hexadecimal
 import random
 
 class Level1:
-    def __init__(self, parameters, text):
+    def __init__(self, parameters):
         self.parameters = parameters
-        self.text = text
-        self.label = parameters['config']['label']
-        self.button_enter = parameters['config']['button_enter']
-        self.button_conti = parameters['config']['button_conti']
+        self.text = ''
         self.next_choose = parameters['config']['next_choose']
 
         self.gate = {
@@ -19,11 +16,11 @@ class Level1:
         }
 
     def scene_1(self):
-        self.button_enter.setEnabled(False)
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
 
         path = 'Model/Story/Level1/Main/Scene1.txt'
         self.text += Controller.tools(path)
-        self.label.setText(self.text)
         self.gate_select()
 
         self.parameters['function'] = 'gate_select'
@@ -35,11 +32,9 @@ class Level1:
         return self.parameters, self.text
 
     def scene_2(self):
-        self.button_enter.setEnabled(False)
-
         path = 'Model/Story/Level1/Main/Scene2.txt'
+
         self.text += Controller.tools(path)
-        self.label.setText(self.text)
         self.gate_select()
 
         self.parameters['function'] = 'scene_select'
@@ -52,11 +47,9 @@ class Level1:
         return self.parameters, self.text
 
     def scene_3(self):
-        self.button_enter.setEnabled(True)
-        self.button_conti.setEnabled(False)
         answer, question = Controller.codec('future')
-
         path = 'Model/Story/Level1/Main/Scene3.txt'
+
         self.text += Controller.tools(path)
         self.text +=f'它寫著：「{question}」，旁邊有一個讓你填的空白\n'
         self.text +='你瞬間明白，這是一個謎題，\n'
@@ -64,7 +57,6 @@ class Level1:
         self.text +='你默默地回想起自己在「真實」和「虛幻」路徑中遇到的各種挑戰和線索，\n'
         self.text +='嘗試將這些信息組合起來，以解開這個謎題。\n'
         self.text +='你明白，每個挑戰都讓你有所成長，而這最後的謎題將是你成長的總結。\n'
-        self.label.setText(self.text)
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -98,15 +90,12 @@ class Level1:
 
         return self.parameters, self.text
 
-    def after_scene(self):
-        self.button_enter.setEnabled(False)
-        self.button_conti.setEnabled(False)
-    
-        answer = self.parameters['parameters_game']['question']['answer']
-        self.text += f'當你將 {answer} 這個單詞填入空白處，\n'
+    def after_scene(self): 
         path = 'Model/Story/Level1/Main/AfterScene.txt'
+        answer = self.parameters['parameters_game']['question']['answer']
+
+        self.text += f'當你將 {answer} 這個單詞填入空白處，\n'
         self.text += Controller.tools(path)
-        self.label.setText(self.text)
 
         return self.parameters, self.text
 
@@ -114,12 +103,7 @@ class Level1:
         if self.next_choose:
             self.text += '\n爲了得到另一個門的知識，你自動選擇了與上次選擇相反的門。\n'
             self.text += '點擊繼續開始下一關\n'
-            self.label.setText(self.text)
         else:
-            self.button_enter.setEnabled(True)
-            self.button_conti.setEnabled(False)
-
             self.text += '\n請選擇你第一個要走的門(倒數60秒)：\n'
             self.text += '1.「真實」之門\n'
             self.text += '2.「虛幻」之門\n'
-            self.label.setText(self.text)

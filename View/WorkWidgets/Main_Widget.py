@@ -18,8 +18,9 @@ class Main_Widget(QtWidgets.QWidget):
         self.story = Story()
         self.typing = False
         self.paragraph_index = 0
+        self.paragraph_to_type = []
         self.current_text = ''
-        self.image_base_path = "Story/story1"
+        self.image_base_path = "View/Story/story1"
         self.setup_ui()
         self.execute()
 
@@ -29,7 +30,7 @@ class Main_Widget(QtWidgets.QWidget):
         self.parameters = {
             'function': 'scene_select',
             'parameters': {
-                'Level': '1',
+                'Level': str(self.story_index),
                 'Scene': '1'
             },
             'parameters_game': {
@@ -48,10 +49,9 @@ class Main_Widget(QtWidgets.QWidget):
             },                 
             'config': {
                 'next_choose': '',
-                'label': self.label,
-                'button_enter': self.button_enter,
-                'button_conti': self.button_conti
-            }     
+                'button_enter': True,
+                'button_conti': True
+            }
         }
 
     def setup_ui(self):
@@ -74,8 +74,8 @@ class Main_Widget(QtWidgets.QWidget):
     def setup_timer(self):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_text)
-        self.text_to_type = ""
-        self.current_text = ""
+        self.text_to_type = ''
+        self.current_text = ''
 
     def setup_buttons(self):
         self.button_back = self.create_button(10, 445, 120, 35, "Button_Back", "回到主選單", self.button_back_click)
@@ -154,20 +154,29 @@ class Main_Widget(QtWidgets.QWidget):
         elif resp == '2':
             self.parameters['config']['next_choose'] = gate['1']
 
-        self.button_enter.setEnabled(False)
-        self.button_conti.setEnabled(True)
+        text = f'你選擇的是{resp}\n'
+        text += f'請點擊繼續鍵繼續'
 
-        self.text += f'\n你選擇的是{resp}\n'
-        self.text += f'請點擊繼續鍵繼續\n\n'
-        self.label.setText(self.text)
+        self.parameters['config']['button_enter'] = False
+        self.parameters['config']['button_conti'] = True
+
+        self.text += text
+        self.paragraph_to_type.append(text)
+        self.button_conti_click()
 
     def question_select(self):
         resp = self.textEdit.toPlainText()
         self.parameters['parameters_game']['question']['response'] = resp
 
-        self.parameters, self.text = Controller(self.parameters, self.text).question_select()
+        self.parameters, text = Controller(self.parameters).question_select()
+
+        self.paragraph_to_type.append(text)
+        self.button_conti_click()
 
     def button_enter_click(self):
+        self.button_enter.setEnabled(True)
+        self.button_conti.setEnabled(False)
+
         function = {
             'gate_select': self.gate_select,
             'scene_select': self.question_select
@@ -176,37 +185,39 @@ class Main_Widget(QtWidgets.QWidget):
         function[self.parameters['function']]()
 
     def button_conti_click(self):
-        self.parameters, self.text = Controller(self.parameters, self.text).scene_select()
-        QtCore.QTimer.singleShot(10, self.scroll_to_bottom)
+        if self.typing and self.text_to_type:
+            self.current_text += self.text_to_type
+            self.text_to_type = ""
+            self.typing = False
 
-        # if self.typing and self.text_to_type:  # 確保 self.text_to_type 不為空
-        #     print(self.text_to_type)
-        #     self.current_text += self.text_to_type
-        #     self.text_to_type = ""
-        #     self.label.setText(self.current_text)
-        #     self.typing = False
-        #     QtCore.QTimer.singleShot(10, self.scroll_to_bottom)  # delay 10 毫秒到底部，讓點繼續時，也可以直接跳到最底部
-        # else:
-        #     story_file = os.path.join(self.image_base_path, "scene1_test.txt")
-        #     with open(story_file, 'r', encoding='utf-8') as f:
-        #         self.story_text = f.read()
-        #     self.paragraphs_to_type = self.story_text.split("\n\n")
+            self.label.setText(self.current_text)
+            QtCore.QTimer.singleShot(10, self.scroll_to_bottom)     # delay 10 毫秒到底部，讓點繼續時，也可以直接跳到最底部
+        else:
+            if self.paragraph_index >= len(self.paragraph_to_type) - 1:
+                self.parameters, text = Controller(self.parameters).scene_select()
+                self.paragraph_to_type += text.split("\n\n")
 
-        #     if self.paragraph_index < len(self.paragraphs_to_type):
-        #         self.text_to_type = self.paragraphs_to_type[self.paragraph_index] + "\n\n"
-        #         self.paragraph_index += 1
-        #     else:
-        #         self.text_to_type = ""
+                if self.paragraph_index > 0:
+                    self.paragraph_index += 1
+            else:
+                self.paragraph_index += 1
 
-        #     self.timer.start(100)
-        #     self.typing = True
+            self.text_to_type = self.paragraph_to_type[self.paragraph_index] + "\n\n"
 
-        # image_path = os.path.join(self.image_base_path, f"img_{self.paragraph_index}.jpg")
-        # if os.path.exists(image_path):
-        #     self.screen.setPixmap(QtGui.QPixmap(image_path))
-        #     self.screen.setScaledContents(True)
-        # else:
-        #     self.screen.clear()
+            self.timer.start(100)
+            self.typing = True
+
+        print(self.paragraph_index, len(self.paragraph_to_type))
+        if self.paragraph_index == len(self.paragraph_to_type) - 1:
+            self.button_enter.setEnabled(self.parameters['config']['button_enter'])
+            self.button_conti.setEnabled(self.parameters['config']['button_conti'])
+
+        image_path = os.path.join(self.image_base_path, f"img_{self.paragraph_index}.jpg")
+        if os.path.exists(image_path):
+            self.screen.setPixmap(QtGui.QPixmap(image_path))
+            self.screen.setScaledContents(True)
+        else:
+            self.screen.clear()
 
     def update_text(self):
         if self.text_to_type:

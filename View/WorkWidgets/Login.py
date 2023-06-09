@@ -14,7 +14,7 @@ class Login(QtWidgets.QWidget):
         font_button = self.create_font("Arial", 20)
         font_title = self.create_font("Arial", 108)
 
-        self.label_image = self.create_label(250, 0, 500, 500, "label_Image", None, image_path="./Resource/login_door")
+        self.label_image = self.create_label(250, 0, 500, 500, "label_Image", None, image_path="View/Resource/login_door")
         self.title1 = self.create_label(70, 10, 200, 200, "title1", "模", font_title)
         self.title2 = self.create_label(70, 260, 200, 200, "title2", "仿", font_title)
         self.title3 = self.create_label(820, 10, 200, 200, "title3", "遊", font_title)

@@ -1,10 +1,9 @@
 from Controller.Controller import Controller
 
 class Hexadecimal:
-    def __init__(self, parameters, text):
+    def __init__(self, parameters):
         self.parameters = parameters
-        self.text = text
-        self.label = parameters['config']['label']
+        self.text = ''
         self.button_enter = parameters['config']['button_enter']
         self.button_conti = parameters['config']['button_conti']
         self.next_choose = parameters['config']['next_choose']
@@ -14,7 +13,6 @@ class Hexadecimal:
 
         path = 'Model/Story/Level1/Hexadecimal/BeforeScene.txt'
         self.text += Controller.tools(path)
-        self.label.setText(self.text)
 
         self.parameters['parameters'] = {
             'Level': 'hexadecimal',
@@ -30,7 +28,6 @@ class Hexadecimal:
 
         self.text += '\n[第一關]\n'
         self.text += f'若一串十六進制數字為{answer_hex}，它代表的十進制數字是多少？\n'
-        self.label.setText(self.text)
     
         self.parameters['parameters'] = {
             'Level': 'hexadecimal',
@@ -42,8 +39,8 @@ class Hexadecimal:
                 'correct': '恭喜你\n',
                 'wrong': '答案錯誤\n',
                 'answer': answer_dec,
-                'hint': '\nhint：每位數的十六進制數字都對應到一個0至15的十進制數字，並且每向左移一位，其值就增加16倍。\n',
-                'solution': f'\n正確答案是：{answer_dec}\n'
+                'hint': 'hint：每位數的十六進制數字都對應到一個0至15的十進制數字，並且每向左移一位，其值就增加16倍。\n',
+                'solution': f'正確答案是：{answer_dec}\n'
             },
             'config': {
                 'chance': 5,
@@ -61,7 +58,6 @@ class Hexadecimal:
         self.text += '\n顯示板上又出現了一個更複雜的問題。\n\n'
         self.text += '[第二關]\n'
         self.text += f'若一串十進制數字為{answer_dec}，它代表的十六進制數字是多少？\n'
-        self.label.setText(self.text)
 
         self.parameters['parameters'] = {
             'Level': 'hexadecimal',
@@ -73,8 +69,8 @@ class Hexadecimal:
                 'correct': '恭喜你\n',
                 'wrong': '答案錯誤\n',
                 'answer': answer_hex,
-                'hint': '\nhint：反覆除以16，看餘數，並反向排列所有的餘數\n',
-                'solution': f'\n正確答案是：{answer_hex}\n'
+                'hint': 'hint：反覆除以16，看餘數，並反向排列所有的餘數\n',
+                'solution': f'正確答案是：{answer_hex}\n'
             },
             'config': {
                 'chance': 5,
@@ -95,7 +91,6 @@ class Hexadecimal:
         self.text += '[第三關]\n'
         self.text += f'請問 1 + 1 = ？\n'
         self.text += '你心想，這個問題這麼簡單，毫不猶豫的輸入答案：\n'
-        self.label.setText(self.text)
 
         self.parameters['parameters'] = {
             'Level': 'hexadecimal',
@@ -108,7 +103,7 @@ class Hexadecimal:
                 'wrong': '機器人：「答案錯誤。」\n',
                 'answer': '2',
                 'hint': '',
-                'solution': '\n機器人：「我看你是完全不懂喔。」\n機器人：「從第一關開始吧。」\n'
+                'solution': '機器人：「我看你是完全不懂喔。」\n機器人：「從第一關開始吧。」\n'
             },
             'config': {
                 'chance': 3,
@@ -121,7 +116,6 @@ class Hexadecimal:
     def after_scene(self):
         path = 'Model/Story/Level1/Hexadecimal/AfterScene.txt'
         self.text += Controller.tools(path)
-        self.label.setText(self.text)
 
         if self.next_choose:
             self.parameters['parameters'] = {

@@ -3,18 +3,15 @@ from View.Story.Game.Binary import Binary
 from View.Story.Game.Hexadecimal import Hexadecimal
 
 class Controller:
-    def __init__(self, parameters, text):
+    def __init__(self, parameters):
         self.parameters = parameters
-        self.text = text
-        self.label = parameters['config']['label']
-        self.button_enter = parameters['config']['button_enter']
-        self.button_conti = parameters['config']['button_conti']
+        self.text = ''
 
     def scene_select(self):
         level = {
-            '1': Level1(self.parameters, self.text),
-            'binary': Binary(self.parameters, self.text),
-            'hexadecimal': Hexadecimal(self.parameters, self.text)
+            '1': Level1(self.parameters),
+            'binary': Binary(self.parameters),
+            'hexadecimal': Hexadecimal(self.parameters)
         }
 
         scene = {
@@ -47,18 +44,18 @@ class Controller:
 
     def question_select(self):
         question = self.parameters.get('parameters_game')['question']
-        config = self.parameters.get('parameters_game')['config']
+        games_config = self.parameters.get('parameters_game')['config']
 
-        chance =  config['chance']
-        retry = config['retry']
+        chance =  games_config['chance']
+        retry = games_config['retry']
         response = question['response']
         answer = question['answer']
         solution = question['solution']
 
         if response == answer:
             self.text += question['correct']
-            self.button_enter.setEnabled(False)
-            self.button_conti.setEnabled(True)
+            self.parameters['config']['button_enter'] = False
+            self.parameters['config']['button_conti'] = True
         else:
             self.text += question['wrong']
 
@@ -67,13 +64,12 @@ class Controller:
                     self.parameters['parameters']['Scene'] = '1'          #back to first stage
 
                 self.text += solution
-                self.button_enter.setEnabled(False)
-                self.button_conti.setEnabled(True)
+                self.parameters['config']['button_enter'] = False
+                self.parameters['config']['button_conti'] = True
                 
             elif chance <= 3:
                 self.text += question['hint']
 
-        self.label.setText(self.text)
         self.parameters['parameters_game']['config']['chance'] -= 1
 
         return self.parameters, self.text
