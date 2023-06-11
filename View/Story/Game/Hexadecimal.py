@@ -27,7 +27,7 @@ class Hexadecimal:
 
         self.text += '[第一關]\n'
         self.text += f'若一串十六進制數字為{answer_hex}，它代表的十進制數字是多少？\n'
-        self.text += '(請輸入4或5位數字)'
+        self.text += '(請輸入3或4或5位數字)'
 
         self.parameters['parameters'] = {
             'Level': 'hexadecimal',
@@ -58,7 +58,7 @@ class Hexadecimal:
         self.text += '顯示板上又出現了一個更複雜的問題。\n\n'
         self.text += '\n[第二關]\n'
         self.text += f'若一串十進制數字為{answer_dec}，它代表的十六進制數字是多少？\n'
-        self.text += '(請輸入3或4或5位數字)'
+        self.text += '(請輸入3或4位的數字或英文字)'
 
         self.parameters['parameters'] = {
             'Level': 'hexadecimal',
