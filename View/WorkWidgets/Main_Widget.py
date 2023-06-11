@@ -47,6 +47,7 @@ class Main_Widget(QtWidgets.QWidget):
                 }
             },
             'config': {
+                'last_choose': '',
                 'next_choose': '',
                 'button_enter': True,
                 'button_conti': True
@@ -153,6 +154,7 @@ class Main_Widget(QtWidgets.QWidget):
 
         try:
             self.parameters['parameters']['Level'] = gate[resp]
+            self.parameters['config']['last_choose'] = gate[resp]
             self.parameters['function'] = 'scene_select'
         except:
             text = '請選擇1或2'
