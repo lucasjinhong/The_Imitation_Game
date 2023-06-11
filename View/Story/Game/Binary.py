@@ -56,7 +56,7 @@ class Binary:
 
         self.text += '這時，螢幕上又繼續顯示了下一題。\n\n'
         self.text += '\n[第二關]\n'
-        self.text += f'若一串十進制數字為{answer_dec}，它代表的二進制數字是多少？'
+        self.text += f'若一串十進制數字為{answer_dec}，它代表的二進制數字是多少？\n'
         self.text += '(請輸入8位數字)'
 
         self.parameters['parameters'] = {
@@ -90,7 +90,7 @@ class Binary:
         self.text += '但這時，螢幕上出現了第三題：\n\n'
         self.text += '\n[第三關]\n'
         self.text += f'請問 1 + 1 = ？\n'
-        self.text += '你心想，這個問題這麼簡單，毫不猶豫的輸入答案：'
+        self.text += '你心想，這個問題這麼簡單，毫不猶豫的輸入答案：\n'
         self.text += '(請輸入1或2位數字)'
 
         self.parameters['parameters'] = {
