@@ -40,8 +40,8 @@ class Level1:
 
         path = 'Model/Story/Level1/Main/Scene2.txt'
         gate = {
-            'binary': '虛幻之門',
-            'hexadecimal': '真實之門'     
+            'binary': '「虛幻」之門',
+            'hexadecimal': '「真實」之門'
         }
         last_choose = gate[self.parameters['config']['last_choose']]
         next_choose = gate[self.parameters['config']['next_choose']]
@@ -78,6 +78,7 @@ class Level1:
         self.text +='你默默地回想起自己在「真實」和「虛幻」路徑中遇到的各種挑戰和線索，\n'
         self.text +='嘗試將這些信息組合起來，以解開這個謎題。\n'
         self.text +='你明白，每個挑戰都讓你有所成長，而這最後的謎題將是你成長的總結。\n'
+        self.text +='(請輸入6個英文字母(小寫))\n'
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -87,8 +88,8 @@ class Level1:
         self.parameters['parameters_game'] = {
             'question': {
                 'response': '',
-                'correct': '恭喜你',
-                'wrong': '答案錯誤',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
                 'answer': answer,
                 'hint': '',
                 'solution': f'正確答案是：{answer}'
