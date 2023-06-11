@@ -40,21 +40,21 @@ class Level1:
 
         path = 'Model/Story/Level1/Main/Scene2.txt'
         gate = {
-            'binary': '「虛幻」之門',
-            'hexadecimal': '「真實」之門'
+            'binary': '「真實」之門',
+            'hexadecimal': '「虛幻」之門'
         }
         last_choose = gate[self.parameters['config']['last_choose']]
         next_choose = gate[self.parameters['config']['next_choose']]
 
         self.text += Controller.tools(path)
-        self.text += '你再次站在那兩扇門前，那種強烈的熟悉感湧上心頭'
-        self.text += f'你回憶起剛剛選擇「{last_choose}」後所經歷的一切，'
-        self.text += '一個充滿未知的路程，最後卻落得空空如也的結果。'
-        self.text += '然而，你並沒有因此感到失望或者懊惱，'
+        self.text += '\n你再次站在那兩扇門前，那種強烈的熟悉感湧上心頭\n'
+        self.text += f'你回憶起剛剛選擇{last_choose}後所經歷的一切，\n'
+        self.text += '一個充滿未知的路程，最後卻落得空空如也的結果。\n'
+        self.text += '然而，你並沒有因此感到失望或者懊惱，\n'
         self.text += '反而，你感到了一股無法形容的決心。\n\n'
-        self.text += f'你再次看向那兩扇門，然後毫不猶豫地選擇了「{next_choose}」。'
-        self.text += '當你走向那扇門時，你感到了一股奇特的能量，'
-        self.text += '它似乎在引導你，告訴你這一次的選擇將會有所不同。\n\n'
+        self.text += f'你再次看向那兩扇門，然後毫不猶豫地選擇了{next_choose}。\n'
+        self.text += '當你走向那扇門時，你感到了一股奇特的能量，\n'
+        self.text += '它似乎在引導你，告訴你這一次的選擇將會有所不同。\n'
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -72,13 +72,13 @@ class Level1:
         path = 'Model/Story/Level1/Main/Scene3.txt'
 
         self.text += Controller.tools(path)
-        self.text +=f'它寫著：「{question}」，旁邊有一個讓你填的空白\n'
+        self.text +=f'它寫著：「{question.strip()}」，旁邊有一個讓你填的空白\n'
         self.text +='你瞬間明白，這是一個謎題，\n'
         self.text +='需要你結合之前「真實」和「虛幻」門後所學習到的知識，才能找到答案。\n'
         self.text +='你默默地回想起自己在「真實」和「虛幻」路徑中遇到的各種挑戰和線索，\n'
         self.text +='嘗試將這些信息組合起來，以解開這個謎題。\n'
         self.text +='你明白，每個挑戰都讓你有所成長，而這最後的謎題將是你成長的總結。\n'
-        self.text +='(請輸入6個英文字母(小寫))\n'
+        self.text +='(請輸入6個英文字母，用已知的知識來解題)\n'
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
