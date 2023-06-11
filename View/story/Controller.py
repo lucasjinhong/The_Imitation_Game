@@ -52,7 +52,9 @@ class Controller:
         answer = question['answer']
         solution = question['solution']
 
-        print(response, answer) # 這邊下面的程式碼有問題
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
+
         if response == answer:
             self.text += question['correct']
             self.parameters['config']['button_enter'] = False
@@ -64,12 +66,12 @@ class Controller:
                 if retry == 1:
                     self.parameters['parameters']['Scene'] = '1'          #back to first stage
 
-                self.text += solution
+                self.text += '\n' + solution
                 self.parameters['config']['button_enter'] = False
                 self.parameters['config']['button_conti'] = True
 
             elif chance <= 3:
-                self.text += question['hint']
+                self.text += '\n' + question['hint']
 
         self.parameters['parameters_game']['config']['chance'] -= 1
 

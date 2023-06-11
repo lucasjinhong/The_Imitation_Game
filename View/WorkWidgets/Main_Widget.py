@@ -25,7 +25,6 @@ class Main_Widget(QtWidgets.QWidget):
         self.execute()
 
         #init
-        self.text = ''
         self.button_enter.setEnabled(False)
         self.parameters = {
             'function': 'scene_select',
@@ -152,37 +151,41 @@ class Main_Widget(QtWidgets.QWidget):
 
         resp = self.textEdit.toPlainText()
 
-        self.parameters['parameters']['Level'] = gate[resp]
-        self.parameters['function'] = 'scene_select'
+        try:
+            self.parameters['parameters']['Level'] = gate[resp]
+            self.parameters['function'] = 'scene_select'
+        except:
+            text = '請選擇1或2'
+        else:
+            if resp == '1':
+                self.parameters['config']['next_choose'] = gate['2']
+            elif resp == '2':
+                self.parameters['config']['next_choose'] = gate['1']
 
-        if resp == '1':
-            self.parameters['config']['next_choose'] = gate['2']
-        elif resp == '2':
-            self.parameters['config']['next_choose'] = gate['1']
+            text = f'你選擇的是{resp}\n'
+            text += f'請點擊「繼續」鍵繼續'
 
-        text = f'你選擇的是{resp}\n'
-        text += f'請點擊「繼續」鍵繼續'
+            self.parameters['config']['button_enter'] = False
+            self.parameters['config']['button_conti'] = True
+            self.button_enter.setEnabled(self.parameters['config']['button_enter'])     #預防二次點擊
+            self.button_conti.setEnabled(self.parameters['config']['button_conti'])
 
-        self.parameters['config']['button_enter'] = False
-        self.parameters['config']['button_conti'] = True
-
-        self.text += text
         self.paragraph_to_type.append(text)
         self.button_conti_click()
 
     def question_select(self):
-        resp = self.textEdit.toPlainText()
+        resp = self.textEdit.toPlainText().lower()
         self.parameters['parameters_game']['question']['response'] = resp
 
         self.parameters, text = Controller(self.parameters).question_select()
+
+        self.button_enter.setEnabled(False)     #預防二次點擊
+        self.button_conti.setEnabled(True)
 
         self.paragraph_to_type.append(text)
         self.button_conti_click()
 
     def button_enter_click(self):
-        self.button_enter.setEnabled(True)
-        self.button_conti.setEnabled(False)
-
         function = {
             'gate_select': self.gate_select,
             'scene_select': self.question_select
@@ -195,6 +198,10 @@ class Main_Widget(QtWidgets.QWidget):
             self.current_text += self.text_to_type
             self.text_to_type = ""
             self.typing = False
+
+            if self.paragraph_index == len(self.paragraph_to_type) - 1:
+                self.button_enter.setEnabled(self.parameters['config']['button_enter'])
+                self.button_conti.setEnabled(self.parameters['config']['button_conti'])
 
             self.label.setText(self.current_text)
             QtCore.QTimer.singleShot(10, self.scroll_to_bottom)     # delay 10 毫秒到底部，讓點繼續時，也可以直接跳到最底部
@@ -212,11 +219,6 @@ class Main_Widget(QtWidgets.QWidget):
 
             self.timer.start(100)
             self.typing = True
-
-        print(self.paragraph_index, len(self.paragraph_to_type))
-        if self.paragraph_index == len(self.paragraph_to_type) - 1:
-            self.button_enter.setEnabled(self.parameters['config']['button_enter'])
-            self.button_conti.setEnabled(self.parameters['config']['button_conti'])
 
         image_path = os.path.join(self.image_base_path, f"img_{self.paragraph_index}.jpg")
         if os.path.exists(image_path):
@@ -238,6 +240,10 @@ class Main_Widget(QtWidgets.QWidget):
         else:
             self.timer.stop()
             self.typing = False
+
+            if self.paragraph_index == len(self.paragraph_to_type) - 1:
+                self.button_enter.setEnabled(self.parameters['config']['button_enter'])
+                self.button_conti.setEnabled(self.parameters['config']['button_conti'])
 
     def scroll_to_bottom(self):
         # 讓點下「繼續」時，滾動區域「也」可以滾動到底部

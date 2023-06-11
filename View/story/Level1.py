@@ -32,6 +32,8 @@ class Level1:
         return self.parameters, self.text
 
     def scene_2(self):
+        self.parameters['config']['button_enter'] = False
+        self.parameters['config']['button_conti'] = True
         path = 'Model/Story/Level1/Main/Scene2.txt'
 
         self.text += Controller.tools(path)
@@ -47,6 +49,8 @@ class Level1:
         return self.parameters, self.text
 
     def scene_3(self):
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
         answer, question = Controller.codec('future')
         path = 'Model/Story/Level1/Main/Scene3.txt'
 
@@ -66,11 +70,11 @@ class Level1:
         self.parameters['parameters_game'] = {
             'question': {
                 'response': '',
-                'correct': '恭喜你\n',
-                'wrong': '答案錯誤\n',
+                'correct': '恭喜你',
+                'wrong': '答案錯誤',
                 'answer': answer,
                 'hint': '',
-                'solution': f'\n正確答案是：{answer}\n'
+                'solution': f'正確答案是：{answer}'
             },
             'config': {
                 'chance': 5,
@@ -91,6 +95,9 @@ class Level1:
         return self.parameters, self.text
 
     def after_scene(self):
+        self.parameters['config']['button_enter'] = False
+        self.parameters['config']['button_conti'] = False
+
         path = 'Model/Story/Level1/Main/AfterScene.txt'
         answer = self.parameters['parameters_game']['question']['answer']
 
@@ -101,10 +108,10 @@ class Level1:
 
     def gate_select(self):
         if self.next_choose:
-            self.text += '\n爲了得到另一個門的知識，你自動選擇了與上次選擇相反的門。\n'
-            self.text += '點擊繼續開始下一關\n'
+            self.text += '爲了得到另一個門的知識，你自動選擇了與上次選擇相反的門。\n'
+            self.text += '點擊繼續開始下一關'
         else:
             self.text += '\n請選擇你第一個要走的門(倒數60秒)：\n'
             self.text += '1.「真實」之門\n'
             self.text += '2.「虛幻」之門\n'
-            self.text += '(請輸入數字1或2)\n'
+            self.text += '(請輸入數字1或2)'
