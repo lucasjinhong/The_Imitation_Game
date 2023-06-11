@@ -26,6 +26,7 @@ class Binary:
 
         self.text += '[第一關]\n'
         self.text += f'若一串二進制數字為{answer_bin}，它代表的十進制數字是多少？\n'
+        self.text += '(請輸入2或3位數字)'
 
         self.parameters['parameters'] = {
             'Level': 'binary',
@@ -34,8 +35,8 @@ class Binary:
         self.parameters['parameters_game'] = {
             'question': {
                 'response': '',
-                'correct': '恭喜你',
-                'wrong': '答案錯誤',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
                 'answer': answer_dec,
                 'hint': '提示：每左移一個數字，就是前一個數字的兩倍',
                 'solution': f'正確答案是：{answer_dec}'
@@ -54,8 +55,9 @@ class Binary:
         answer_dec, answer_bin = Controller.codec('dec_to_bin')
 
         self.text += '這時，螢幕上又繼續顯示了下一題。\n\n'
-        self.text += '[第二關]\n'
+        self.text += '\n[第二關]\n'
         self.text += f'若一串十進制數字為{answer_dec}，它代表的二進制數字是多少？'
+        self.text += '(請輸入8位數字)'
 
         self.parameters['parameters'] = {
             'Level': 'binary',
@@ -64,8 +66,8 @@ class Binary:
         self.parameters['parameters_game'] = {
             'question': {
                 'response': '',
-                'correct': '恭喜你',
-                'wrong': '答案錯誤',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
                 'answer': answer_bin,
                 'hint': '提示：反覆除以2，看餘數，並反向排列所有的餘數',
                 'solution': f'正確答案是：{answer_bin}'
@@ -86,9 +88,10 @@ class Binary:
         self.text += '把二進制轉成十進制，把十進制轉成二進制，\n'
         self.text += '最重要的應該就是這兩個觀念，\n'
         self.text += '但這時，螢幕上出現了第三題：\n\n'
-        self.text += '[第三關]\n'
+        self.text += '\n[第三關]\n'
         self.text += f'請問 1 + 1 = ？\n'
         self.text += '你心想，這個問題這麼簡單，毫不猶豫的輸入答案：'
+        self.text += '(請輸入1或2位數字)'
 
         self.parameters['parameters'] = {
             'Level': 'binary',
@@ -97,8 +100,8 @@ class Binary:
         self.parameters['parameters_game'] = {
             'question': {
                 'response': '',
-                'correct': '機器人：「你很勇嘛。」',
-                'wrong': '機器人：「答案錯誤。」',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
                 'answer': '10',
                 'hint': '',
                 'solution': '機器人：「我看你是完全不懂喔。」\n機器人：「從第一關開始吧。」\n'
