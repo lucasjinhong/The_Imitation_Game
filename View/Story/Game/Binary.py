@@ -57,7 +57,7 @@ class Binary:
         self.text += '這時，螢幕上又繼續顯示了下一題。\n\n'
         self.text += '\n[第二關]\n'
         self.text += f'若一串十進制數字為{answer_dec}，它代表的二進制數字是多少？\n'
-        self.text += '(請輸入8位數字)'
+        self.text += '(請輸入8位數字，未滿8位請補零)'
 
         self.parameters['parameters'] = {
             'Level': 'binary',
