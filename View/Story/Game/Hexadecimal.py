@@ -26,7 +26,7 @@ class Hexadecimal:
         answer_hex, answer_dec = Controller.codec('hex_to_dec')
 
         self.text += '[第一關]\n'
-        self.text += f'若一串十六進制數字為{answer_hex}，它代表的十進制數字是多少？\n'
+        self.text += f'若一串十六進制數字為{answer_hex.upper()}，它代表的十進制數字是多少？\n'
         self.text += '(請輸入3或4或5位數字)'
 
         self.parameters['parameters'] = {
