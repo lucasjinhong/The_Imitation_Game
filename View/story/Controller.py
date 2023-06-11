@@ -49,7 +49,7 @@ class Controller:
         chance =  games_config['chance']
         retry = games_config['retry']
         response = question['response']
-        answer = question['answer']
+        answer = str(question['answer'])
         solution = question['solution']
 
         self.parameters['config']['button_enter'] = True
