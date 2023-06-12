@@ -141,7 +141,7 @@ class Main_Widget(QtWidgets.QWidget):
             self.back_window.emit()
 
     def button_help_click(self): # TODO
-        dlg = Dialog("測試: 非霖不投", "為什麼你要點這個按鈕呢???")
+        dlg = Dialog("測試: 測試", "此按鈕的功能仍在開發中")
         dlg.exec()
 
     def gate_select(self):
