@@ -1,4 +1,5 @@
 from View.Story.Level1 import Level1
+from View.Story.Level2 import Level2
 from View.Story.Game.Binary import Binary
 from View.Story.Game.Hexadecimal import Hexadecimal
 
@@ -11,7 +12,8 @@ class Controller:
         level = {
             '1': Level1(self.parameters),
             'binary': Binary(self.parameters),
-            'hexadecimal': Hexadecimal(self.parameters)
+            'hexadecimal': Hexadecimal(self.parameters),
+            '2': Level2(self.parameters)
         }
 
         scene = {
@@ -34,6 +36,15 @@ class Controller:
                 '2': level['hexadecimal'].question_2,
                 '3': level['hexadecimal'].question_3,
                 'after': level['hexadecimal'].after_scene,
+            },
+            '2': {
+                '1': level['2'].scene_1,
+                '2': level['2'].scene_2,
+                '3': level['2'].scene_3,
+                '4': level['2'].scene_4,
+                '5': level['2'].scene_5,
+                '6': level['2'].scene_6,
+                '7': level['2'].scene_7
             }
         }
 

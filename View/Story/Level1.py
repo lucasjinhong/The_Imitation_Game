@@ -2,8 +2,6 @@ from Controller.Controller import Controller
 from View.Story.Game.Binary import Binary
 from View.Story.Game.Hexadecimal import Hexadecimal
 
-import random
-
 class Level1:
     def __init__(self, parameters):
         self.parameters = parameters

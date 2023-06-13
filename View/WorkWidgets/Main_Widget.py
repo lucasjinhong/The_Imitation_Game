@@ -20,7 +20,7 @@ class Main_Widget(QtWidgets.QWidget):
         self.paragraph_index = 0
         self.paragraph_to_type = []
         self.current_text = ''
-        self.image_base_path = "View/Story/story1"
+        self.image_base_path = "View/Resource/Level1"
         self.setup_ui()
         self.execute()
 
@@ -30,7 +30,9 @@ class Main_Widget(QtWidgets.QWidget):
             'function': 'scene_select',
             'parameters': {
                 'Level': str(self.story_index),
-                'Scene': '1'
+                'Scene': '7',
+                'last_question': '',
+                'last_answer': '00000000 11111111 00000000 11111111'
             },
             'parameters_game': {
                 'question': {
