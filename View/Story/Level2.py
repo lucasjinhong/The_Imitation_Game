@@ -3,16 +3,16 @@ from Controller.Controller import Controller
 class Level2:
     def __init__(self, parameters):
         self.parameters = parameters
+        self.text = ''
         self.last_question = parameters['parameters']['last_question']
         self.last_answer = parameters['parameters']['last_answer']
-        self.text = ''
 
     def scene_1(self):
-        self.parameters['config']['button_enter'] = False
-        self.parameters['config']['button_conti'] = True
-
         path = 'Model/Story/Level2/Scene1.txt'
         self.text += Controller.tools(path)
+
+        self.parameters['config']['button_enter'] = False
+        self.parameters['config']['button_conti'] = True
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -25,9 +25,7 @@ class Level2:
         return self.parameters, self.text
 
     def scene_2(self):
-        self.parameters['config']['button_enter'] = True
-        self.parameters['config']['button_conti'] = False
-        answer_bin, answer_not = Controller.codec('nor_to_not')
+        answer_not, answer_bin = Controller.codec('2', 'not_gate')
 
         self.text += '在Binaropolis的中心，居民們正為如何對抗那個黑客而煩惱著。'
         self.text += '而就在此時，一道訊號忽然出現在一條被命名為 "Negation Alley" 的巷子中。'
@@ -35,7 +33,11 @@ class Level2:
 
         path = 'Model/Story/Level2/Scene2.txt'
         self.text += Controller.tools(path)
+
         self.text += f'這串二進制碼{answer_bin}在Not英雄的能力作用下，會變成怎樣的結果？'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -62,10 +64,8 @@ class Level2:
         return self.parameters, self.text
     
     def scene_3(self):
-        self.parameters['config']['button_enter'] = True
-        self.parameters['config']['button_conti'] = False
         answer_not = self.last_answer
-        answer_nor, answer_and = Controller.codec('nor_and_not', answer_not)
+        answer_and, answer_bin = Controller.codec('2', 'and_gate', answer_not)
 
         self.text += 'Not伸出手指輕觸數據流，然後，一股強大的能量釋放出來。'
         self.text += f'在他的能力作用下，原本的 {self.last_question} 被反轉為了 {self.last_answer}。\n\n'
@@ -73,13 +73,17 @@ class Level2:
         path = 'Model/Story/Level2/Scene3-1.txt'
         self.text += Controller.tools(path)
 
-        self.text += f'這兩組訊號分別是 {answer_nor} 和經Not轉換過的 {answer_not}。'
+        self.text += f'這兩組訊號分別是 {answer_bin} 和經Not轉換過的 {answer_not}。'
         self.text += '二者被黑客巧妙地連接在一起，每一個數字都對應著另一組數字的相應位置。'
         self.text += '這種關聯似乎並不隨機，而是有特定的規律。\n\n'
 
         path = 'Model/Story/Level2/Scene3-2.txt'
         self.text += Controller.tools(path)
-        self.text += f'這兩串二進制碼({answer_nor}, {answer_not})在And的能力作用下，會變成怎樣的結果？'
+
+        self.text += f'這兩串二進制碼({answer_bin}, {answer_not})在And的能力作用下，會變成怎樣的結果？'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -106,10 +110,8 @@ class Level2:
         return self.parameters, self.text
 
     def scene_4(self):
-        self.parameters['config']['button_enter'] = True
-        self.parameters['config']['button_conti'] = False
         answer_and = self.last_answer
-        answer_nor, answer_or = Controller.codec('nor_or_and', answer_and)
+        answer_or, answer_bin = Controller.codec('2', 'or_gate', answer_and)
 
         self.text += '眾人屏息以待，And 終於開口：「我完成了運算。」'
         self.text += f'他指著新的二進制碼{answer_and}說道：「這是我根據這兩串數字運算的結果。'
@@ -118,7 +120,7 @@ class Level2:
         path = 'Model/Story/Level2/Scene4-1.txt'
         self.text += Controller.tools(path)
 
-        self.text += f'\n在他們沿著 Union Avenue 深入的時候，一個新的訊號忽然閃爍著微弱的光芒出現在他們的眼前，那是一串二進制碼：{answer_nor}。'
+        self.text += f'\n在他們沿著 Union Avenue 深入的時候，一個新的訊號忽然閃爍著微弱的光芒出現在他們的眼前，那是一串二進制碼：{answer_bin}。'
         self.text += '此時，他們看到黑客留下的另一個訊息：「在聯合中取得答案。」'
         self.text += '這似乎是個新的提示，也可能是另一個陷阱，'
         self.text += '無論如何，他們必須前進，他們必須去解開這個新的謎團。'
@@ -127,7 +129,11 @@ class Level2:
 
         path = 'Model/Story/Level2/Scene4-2.txt'
         self.text += Controller.tools(path)
-        self.text += f'\n如果將 And 處理過的二進制碼({answer_and})和新的訊號({answer_nor})進行Or的能力，會變成怎樣的結果？'
+
+        self.text += f'\n如果將 And 處理過的二進制碼({answer_and})和新的訊號({answer_bin})進行Or的能力，會變成怎樣的結果？'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -154,10 +160,8 @@ class Level2:
         return self.parameters, self.text
     
     def scene_5(self):
-        self.parameters['config']['button_enter'] = True
-        self.parameters['config']['button_conti'] = False
         answer_or = self.last_answer
-        answer_nor, answer_xor = Controller.codec('nor_xor_or', answer_or)
+        answer_xor, answer_bin = Controller.codec('2', 'xor_gate', answer_or)
 
         self.text += f'瞬間，邏輯或運算的結果出現在他們面前，新的二進制碼清晰可見，那就是 {answer_or} 。'
         self.text += 'Or深深地吸了口氣，轉向他的隊友們，他的聲音充滿了自信與堅定，「答案，已經出現。」\n\n'
@@ -171,7 +175,11 @@ class Level2:
 
         path = 'Model/Story/Level2/Scene5-2.txt'
         self.text += Controller.tools(path)
-        self.text += f'\n請試著將 Or 處理過的二進制碼({answer_or})和新訊號({answer_nor})進行Xor的能力運算，會變成怎樣的結果？'
+
+        self.text += f'\n請試著將 Or 處理過的二進制碼({answer_or})和新訊號({answer_bin})進行Xor的能力運算，會變成怎樣的結果？'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -198,10 +206,7 @@ class Level2:
         return self.parameters, self.text
 
     def scene_6(self):
-        self.parameters['config']['button_enter'] = True
-        self.parameters['config']['button_conti'] = False
-
-        answer_hex, answer_bin = Controller.codec('hex_to_bin')
+        answer_hex, answer_bin = Controller.codec('2', 'hex_to_bin')
 
         path = 'Model/Story/Level2/Scene6.txt'
         self.text += Controller.tools(path)
@@ -209,6 +214,9 @@ class Level2:
         self.text += f'這個混淆碼是一串16進制碼：{answer_hex}，旁邊還寫著一個訊息：「只有那些能理解我們的語言，才能找到我們。」'
         self.text += '看來，他們需要先將這串混淆碼做一些轉換，才能進行運算。'
         self.text += '請輸入這串16進制碼轉成2進制碼後的結果：'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
 
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
@@ -235,11 +243,8 @@ class Level2:
         return self.parameters, self.text
     
     def scene_7(self):
-        self.parameters['config']['button_enter'] = True
-        self.parameters['config']['button_conti'] = False
         answer_bin = self.last_answer.split(' ')
-
-        answer_all = Controller.codec('all_in_one', answer_bin)
+        answer_all = Controller.codec('2', 'all_in_one', answer_bin)
 
         self.text += '四位英雄一起上前，他們集中了全力，將這串16進制碼轉換為2進制碼，他們知道，16進制的每一個數字或字母代表4個2進制碼。'
         self.text += f'所以，這串16進制碼 {self.last_question} 轉成2進制碼後的結果為：{self.last_answer}。\n\n'
@@ -254,12 +259,15 @@ class Level2:
         self.text += f'4. 把 `C` 和 {answer_bin[3]} 進行Xor能力運算後，得到 `D`\n\n'
         self.text += '請照順序輸入A, B, C, D(以八個數字為一組，每一組之間空一個半形空格，Ex：00000000 11111111 00000000 11111111)：'
 
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
+
         self.parameters['function'] = 'scene_select'
         self.parameters['parameters'] = {
             'Level': '2',
             'Scene': '8',
             'last_question': '',
-            'last_answer': ''
+            'last_answer': self.last_answer
         }
         self.parameters['parameters_game'] = {
             'question': {
@@ -279,5 +287,104 @@ class Level2:
         return self.parameters, self.text
     
     def scene_8(self):
+        path = 'Model/Story/Level2/Scene8-1.txt'
+        self.text += Controller.tools(path)
+
+        self.text += '四位英雄對視一眼，他們知道，這一次的挑戰將比之前的還要艱鉅。'
+        self.text += '這不僅僅是一場對他們理解力和運算能力的考驗，更是對他們堅韌意志的挑戰。'
+        self.text += f'他們再次集中全力，將先前從16進制轉換為的2進制碼 {self.last_answer} 以及解答 A B C D '
+        self.text += '進行Not, And, Or, Xor的運算，然而，嘗試了幾次之後，很快就發現事情沒有這麼簡單。\n\n'
+
+        path = 'Model/Story/Level2/Scene8-2.txt'
+        self.text += Controller.tools(path)
+
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
+
+        self.parameters['function'] = 'scene_select'
+        self.parameters['parameters'] = {
+            'Level': '2',
+            'Scene': '9',
+            'last_question': '',
+            'last_answer': self.last_answer
+        }
+        self.parameters['parameters_game'] = {
+            'question': {
+                'response': '',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
+                'answer': '4231',
+                'hint': '',
+                'solution': '正確答案是：4231'
+            },
+            'config': {
+                'chance': 5,
+                'retry': 0
+            }
+        }
+
+        return self.parameters, self.text
+
+    def scene_9(self):
+        answer_bin = self.last_answer.split(' ')
+        answer_all = Controller.codec('2', 'last_codec', answer_bin)
+
+        path = 'Model/Story/Level2/Scene9.txt'
+        self.text += Controller.tools(path)
+
+        self.text += f'請輸入這兩段數字({self.last_answer}) 經過Xor And Or Not運算後的結果：\n'
+        self.text += '(以八個數字為一組，每一組之間空一個半形空格，Ex：00000000 11111111 00000000 11111111)'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
+
+        self.parameters['function'] = 'scene_select'
+        self.parameters['parameters'] = {
+            'Level': '2',
+            'Scene': 'after',
+            'last_question': '',
+            'last_answer': ''
+        }
+        self.parameters['parameters_game'] = {
+            'question': {
+                'response': '',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
+                'answer': answer_all,
+                'hint': '提示：\nNot：0變1；1變0\nAnd：都是1才是1，只要其中一個是0就是0\nOr：都是0才是0，只要其中一個是1就是1\nXor：相同為0，相異為1',
+                'solution': f'正確答案是：{answer_all}'
+            },
+            'config': {
+                'chance': 5,
+                'retry': 0
+            }
+        }
+
+        return self.parameters, self.text
+
+    def after_scene(self):
+        path = 'Model/Story/Level2/AfterScene.txt'
+        self.text += Controller.tools(path)
+
+        self.parameters['config']['button_enter'] = False
+        self.parameters['config']['button_conti'] = False
+
+        return self.parameters, self.text
+
+    def scene_handler(self):
+        resp_scene = self.parameters.get('parameters')['Scene']
+
+        scene = {
+            '1': self.scene_1,
+            '2': self.scene_2,
+            '3': self.scene_3,
+            '4': self.scene_4,
+            '5': self.scene_5,
+            '6': self.scene_6,
+            '7': self.scene_7,
+            '8': self.scene_8,
+            '9': self.scene_9,
+            'after': self.after_scene
+        }
+
+        return scene[resp_scene]()

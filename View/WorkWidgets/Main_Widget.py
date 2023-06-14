@@ -30,9 +30,9 @@ class Main_Widget(QtWidgets.QWidget):
             'function': 'scene_select',
             'parameters': {
                 'Level': str(self.story_index),
-                'Scene': '7',
+                'Scene': '1',
                 'last_question': '',
-                'last_answer': '00000000 11111111 00000000 11111111'
+                'last_answer': ''
             },
             'parameters_game': {
                 'question': {

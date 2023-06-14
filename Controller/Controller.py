@@ -6,19 +6,10 @@ class Controller:
     def tools(path):
         return PrintContent(path).execute()
 
-    def codec(function, last_answer=''):
-        codec = {
-            'dec_to_bin': Level1Codec.dec_to_bin,
-            'bin_to_dec': Level1Codec.bin_to_dec,
-            'dec_to_hex': Level1Codec.dec_to_hex,
-            'hex_to_dec': Level1Codec.hex_to_dec,
-            'future': Level1Codec.future_codec,
-            'nor_to_not': Level2Codec.nor_to_not,
-            'nor_and_not': Level2Codec.nor_and_not,
-            'nor_or_and': Level2Codec.nor_or_and,
-            'nor_xor_or': Level2Codec.nor_xor_or,
-            'hex_to_bin': Level2Codec.hex_to_bin,
-            'all_in_one': Level2Codec.all_in_one
+    def codec(level, function, answer_last=''):
+        select = {
+            '1': Level1Codec().codec_handler,
+            '2': Level2Codec().codec_handler
         }
 
-        return codec[function](last_answer)
+        return select[level](function, answer_last)

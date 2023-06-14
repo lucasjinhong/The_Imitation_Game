@@ -10,48 +10,15 @@ class Controller:
 
     def scene_select(self):
         level = {
-            '1': Level1(self.parameters),
-            'binary': Binary(self.parameters),
-            'hexadecimal': Hexadecimal(self.parameters),
-            '2': Level2(self.parameters)
-        }
-
-        scene = {
-            '1': {
-                '1': level['1'].scene_1,
-                '2': level['1'].scene_2,
-                '3': level['1'].scene_3,
-                'after': level['1'].after_scene
-            },
-            'binary': {
-                'before': level['binary'].before_scene,
-                '1': level['binary'].question_1,
-                '2': level['binary'].question_2,
-                '3': level['binary'].question_3,
-                'after': level['binary'].after_scene,
-            },
-            'hexadecimal': {
-                'before': level['hexadecimal'].before_scene,
-                '1': level['hexadecimal'].question_1,
-                '2': level['hexadecimal'].question_2,
-                '3': level['hexadecimal'].question_3,
-                'after': level['hexadecimal'].after_scene,
-            },
-            '2': {
-                '1': level['2'].scene_1,
-                '2': level['2'].scene_2,
-                '3': level['2'].scene_3,
-                '4': level['2'].scene_4,
-                '5': level['2'].scene_5,
-                '6': level['2'].scene_6,
-                '7': level['2'].scene_7
-            }
+            '1': Level1(self.parameters).scene_handler,
+            '2': Level2(self.parameters).scene_handler,
+            'binary': Binary(self.parameters).scene_handler,
+            'hexadecimal': Hexadecimal(self.parameters).scene_handler
         }
 
         resp_level = self.parameters.get('parameters')['Level']
-        resp_scene = self.parameters.get('parameters')['Scene']
 
-        return scene[resp_level][resp_scene]()
+        return level[resp_level]()
 
     def question_select(self):
         question = self.parameters.get('parameters_game')['question']
