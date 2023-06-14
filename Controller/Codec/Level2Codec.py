@@ -10,7 +10,7 @@ class Level2Codec:
             else:
                 answer_not += '0'
 
-        return answer_not, answer_bin 
+        return answer_not, answer_bin
     
     def and_gate(self, answer_bin, answer_last=''):
         answer_and = ''
@@ -82,21 +82,22 @@ class Level2Codec:
         answer = ' '.join(answer)
 
         return answer
-    
+
     def last_codec(self, answer_bin, answer_last=''):
         answer = [None]*4
 
-        answer[0], _ = self.xor_gate(answer_last[1], answer_last[0])
-        answer[1], _ = self.and_gate(answer_last[2], answer[0])
-        answer[2], _ = self.or_gate(answer_last[3], answer[1])
-        answer[3], _ = self.not_gate(answer[2])
+        answer[0], _ = self.xor_gate(answer_bin[0], answer_last[0])
+        answer[1], _ = self.and_gate(answer_bin[1], answer_last[1])
+        answer[2], _ = self.or_gate(answer_bin[2], answer_last[2])
+        answer[3], _ = self.not_gate(answer_bin[3])
 
         answer = ' '.join(answer)
 
         return answer
-    
-    def codec_handler(self, function, answer_last):
-        answer_bin = format(random.randint(1,256), '08b')
+
+    def codec_handler(self, function, answer_last, answer_bin=''):
+        if function != 'last_codec':
+            answer_bin = format(random.randint(1,256), '08b')
 
         codec = {
             'not_gate': self.not_gate,

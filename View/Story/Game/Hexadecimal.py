@@ -149,7 +149,7 @@ class Hexadecimal:
             }
 
         return self.parameters, self.text
-    
+
     def scene_handler(self):
         resp_scene = self.parameters.get('parameters')['Scene']
 

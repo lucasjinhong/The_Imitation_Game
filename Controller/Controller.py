@@ -6,10 +6,10 @@ class Controller:
     def tools(path):
         return PrintContent(path).execute()
 
-    def codec(level, function, answer_last=''):
+    def codec(level, function, answer_last='', question_last=''):
         select = {
             '1': Level1Codec().codec_handler,
             '2': Level2Codec().codec_handler
         }
 
-        return select[level](function, answer_last)
+        return select[level](function, answer_last, question_last)

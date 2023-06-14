@@ -7,7 +7,7 @@ class Level1:
         self.parameters = parameters
         self.text = ''
         self.next_choose = parameters['config']['next_choose']
-        
+
         self.gate = {
             '1': Binary,
             '2': Hexadecimal
@@ -130,7 +130,7 @@ class Level1:
         self.parameters['config']['button_conti'] = False
 
         return self.parameters, self.text
-    
+
     def scene_handler(self):
         resp_scene = self.parameters.get('parameters')['Scene']
 

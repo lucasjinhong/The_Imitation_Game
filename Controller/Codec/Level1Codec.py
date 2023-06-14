@@ -39,7 +39,7 @@ class Level1Codec:
                 question += format(word, '04x') + ' '
 
         return answer, question
-    
+
     def codec_handler(self, function, answer_last):
         codec = {
             'dec_to_bin': self.dec_to_bin,

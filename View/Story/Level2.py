@@ -266,8 +266,8 @@ class Level2:
         self.parameters['parameters'] = {
             'Level': '2',
             'Scene': '8',
-            'last_question': '',
-            'last_answer': self.last_answer
+            'last_question': self.last_answer,
+            'last_answer': answer_all
         }
         self.parameters['parameters_game'] = {
             'question': {
@@ -292,7 +292,7 @@ class Level2:
 
         self.text += '四位英雄對視一眼，他們知道，這一次的挑戰將比之前的還要艱鉅。'
         self.text += '這不僅僅是一場對他們理解力和運算能力的考驗，更是對他們堅韌意志的挑戰。'
-        self.text += f'他們再次集中全力，將先前從16進制轉換為的2進制碼 {self.last_answer} 以及解答 A B C D '
+        self.text += f'他們再次集中全力，將先前從16進制轉換為的2進制碼 {self.last_question} 以及解答 {self.last_answer} '
         self.text += '進行Not, And, Or, Xor的運算，然而，嘗試了幾次之後，很快就發現事情沒有這麼簡單。\n\n'
 
         path = 'Model/Story/Level2/Scene8-2.txt'
@@ -305,7 +305,7 @@ class Level2:
         self.parameters['parameters'] = {
             'Level': '2',
             'Scene': '9',
-            'last_question': '',
+            'last_question': self.last_question,
             'last_answer': self.last_answer
         }
         self.parameters['parameters_game'] = {
@@ -326,13 +326,17 @@ class Level2:
         return self.parameters, self.text
 
     def scene_9(self):
-        answer_bin = self.last_answer.split(' ')
-        answer_all = Controller.codec('2', 'last_codec', answer_bin)
+        last_question = self.last_question.split(' ')
+        last_answer = self.last_answer.split(' ')
+        last_answer[3] = '________'
+        self.last_answer = ' '.join(last_answer)
+
+        answer_all = Controller.codec('2', 'last_codec', last_answer, last_question)
 
         path = 'Model/Story/Level2/Scene9.txt'
         self.text += Controller.tools(path)
 
-        self.text += f'請輸入這兩段數字({self.last_answer}) 經過Xor And Or Not運算後的結果：\n'
+        self.text += f'請輸入這兩段數字({self.last_question}和{self.last_answer}) 經過Xor And Or Not運算後的結果：\n'
         self.text += '(以八個數字為一組，每一組之間空一個半形空格，Ex：00000000 11111111 00000000 11111111)'
 
         self.parameters['config']['button_enter'] = True
