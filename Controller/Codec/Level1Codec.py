@@ -12,7 +12,7 @@ class Level1Codec:
         answer_bin = format(answer_dec, '08b')
 
         return answer_bin, answer_dec
-    
+
     def dec_to_hex(self):
         answer_dec = random.randint(1,65535)
         answer_hex = format(answer_dec, '04x')
@@ -24,7 +24,7 @@ class Level1Codec:
         answer_hex = format(answer_dec, '04x')
 
         return answer_hex, answer_dec
-    
+
     def future_codec(self):
         answer = 'future'
         question = ''
@@ -40,7 +40,7 @@ class Level1Codec:
 
         return answer, question
 
-    def codec_handler(self, function, answer_last):
+    def codec_handler(self, function, answer_last, answer_bin=''):
         codec = {
             'dec_to_bin': self.dec_to_bin,
             'bin_to_dec': self.bin_to_dec,
