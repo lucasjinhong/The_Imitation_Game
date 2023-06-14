@@ -20,7 +20,7 @@ class Main_Widget(QtWidgets.QWidget):
         self.paragraph_index = 0
         self.paragraph_to_type = []
         self.current_text = ''
-        self.image_base_path = "View/Resource/Level1"
+        self.image_base_path = f"View/Resource/Level{self.story_index}"
         self.setup_ui()
         self.execute()
 
