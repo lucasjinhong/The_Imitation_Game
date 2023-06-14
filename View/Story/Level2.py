@@ -344,10 +344,10 @@ class Level2:
         path = 'Model/Story/Level2/Scene9.txt'
         self.text += Controller.tools(path)
 
-        self.text += '\n請輸入這兩段數字，\n'
+        self.text += '\n請輸入這兩段數字，經過Xor And Or Not運算後的結果\n'
         self.text += f' "{self.last_question}" 和\n'
-        self.text += f' "{self.last_answer}────A, B, C, D，(D這組數字，因為Not英雄發現可能有誤，而被屏蔽)\n'
-        self.text += '經過Xor And Or Not運算後的結果：\n'
+        self.text += f' "{self.last_answer}" ──── A, B, C, D\n'
+        self.text += '(由於Not英雄提出 D 組數字可能存在錯誤，該組數字已經被屏蔽。)\n\n'
 
         self.text += '(以8位數字為一組，每一組之間空一個半形空格，\n'
         self.text += ' Ex：00000000 11111111 00000000 11111111)'
