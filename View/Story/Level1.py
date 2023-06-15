@@ -76,7 +76,7 @@ class Level1:
         path = 'Model/Story/Level1/Main/Scene3.txt'
         self.text += Controller.tools(path)
 
-        self.text +=f'它寫著：「{question.strip()}」，旁邊有一個讓你填的空白\n'
+        self.text +=f'它寫著：「{question[0]}」，旁邊有一個讓你填的空白\n'
         self.text +='你瞬間明白，這是一個謎題，\n'
         self.text +='需要你結合之前「真實」和「虛幻」門後所學習到的知識，才能找到答案。\n\n'
 

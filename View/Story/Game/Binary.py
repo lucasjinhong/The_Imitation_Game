@@ -23,10 +23,10 @@ class Binary:
         return self.parameters, self.text
 
     def question_1(self):
-        answer_bin, answer_dec = Controller.codec('1', 'bin_to_dec')
+        answer, question = Controller.codec('1', 'bin_to_dec')
 
         self.text += '[第一關]\n'
-        self.text += f'若一串二進制數字為{answer_bin}，它代表的十進制數字是多少？\n'
+        self.text += f'若一串二進制數字為{question[0]}，它代表的十進制數字是多少？\n'
         self.text += '(請輸入2或3位數字)'
 
         self.parameters['config']['button_enter'] = True
@@ -43,9 +43,9 @@ class Binary:
                 'response': '',
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
-                'answer': answer_dec,
+                'answer': answer,
                 'hint': '提示：每左移一個數字，就是前一個數字的兩倍',
-                'solution': f'正確答案是：{answer_dec}'
+                'solution': f'正確答案是：{answer}'
             },
             'config': {
                 'chance': 5,
@@ -56,11 +56,11 @@ class Binary:
         return self.parameters, self.text
 
     def question_2(self):
-        answer_dec, answer_bin = Controller.codec('1', 'dec_to_bin')
+        answer, question = Controller.codec('1', 'dec_to_bin')
 
         self.text += '這時，螢幕上又繼續顯示了下一題。\n\n'
         self.text += '\n[第二關]\n'
-        self.text += f'若一串十進制數字為{answer_dec}，它代表的二進制數字是多少？\n'
+        self.text += f'若一串十進制數字為{question[0]}，它代表的二進制數字是多少？\n'
         self.text += '(請輸入8位數字，未滿8位請補零)'
 
         self.parameters['config']['button_enter'] = True
@@ -77,9 +77,9 @@ class Binary:
                 'response': '',
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
-                'answer': answer_bin,
+                'answer': answer,
                 'hint': '提示：反覆除以2，看餘數，並反向排列所有的餘數',
-                'solution': f'正確答案是：{answer_bin}'
+                'solution': f'正確答案是：{answer}'
             },
             'config': {
                 'chance': 5,

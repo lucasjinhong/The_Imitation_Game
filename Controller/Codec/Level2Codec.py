@@ -1,104 +1,98 @@
 import random
 
 class Level2Codec:
-    def not_gate(self, answer_bin, answer_last=''):
-        answer_not = ''
+    def check_question_len(self, question, length):
+        for _ in range(length - len(question)):
+            question.append(format(random.randint(1,256), '08b'))
+
+        return question
+
+    def not_gate(self, question):
+        question = self.check_question_len(question, 1)
+        answer = ''
         
-        for ans in answer_bin:
+        for ans in question[0]:
             if ans == '0':
-                answer_not += '1'
+                answer += '1'
             else:
-                answer_not += '0'
+                answer += '0'
 
-        return answer_not, answer_bin
+        return answer, question
     
-    def and_gate(self, answer_bin, answer_last=''):
-        answer_and = ''
+    def and_gate(self, question):
+        question = self.check_question_len(question, 2)
+        answer = ''
 
-        ans_a = answer_last.strip()
-        ans_b = answer_bin.strip()
-        ans_len = len(answer_bin)
-
-        for i in range(ans_len):
-            if ans_b[i] == '1' and ans_a[i] == '1':
-                answer_and += '1'
+        for i in range(len(question[0])):
+            if question[0][i] == '1' and question[1][i] == '1':
+                answer += '1'
             else:
-                answer_and += '0'
+                answer += '0'
 
-        return answer_and, answer_bin
+        return answer, question
     
-    def or_gate(self, answer_bin, answer_last=''):
-        answer_or = ''
+    def or_gate(self, question):
+        question = self.check_question_len(question, 2)
+        answer = ''
 
-        ans_a = answer_last.strip()
-        ans_b = answer_bin.strip()
-        ans_len = len(answer_bin)
-
-        for i in range(ans_len):
-            if ans_b[i] == '1' or ans_a[i] == '1':
-                answer_or += '1'
+        for i in range(len(question[0])):
+            if question[0][i] == '1' or question[1][i] == '1':
+                answer += '1'
             else:
-                answer_or += '0'
+                answer += '0'
 
-        return answer_or, answer_bin
+        return answer, question
     
-    def xor_gate(self, answer_bin, answer_last=''):
-        answer_xor = ''
+    def xor_gate(self, question):
+        question = self.check_question_len(question, 2)
+        answer = ''
 
-        ans_a = answer_last.strip()
-        ans_b = answer_bin.strip()
-        ans_len = len(answer_bin)
-
-        for i in range(ans_len):
-            if ans_b[i] == ans_a[i]:
-                answer_xor += '0'
+        for i in range(len(question[0])):
+            if question[0][i] == question[1][i]:
+                answer += '0'
             else:
-                answer_xor += '1'
+                answer += '1'
 
-        return  answer_xor, answer_bin
+        return answer, question
     
-    def hex_to_bin(self, answer_bin, answer_last=''):
-        answer_hex = []
-        answer_bin = []
+    def hex_to_bin(self, question):
+        answer = []
 
         for _ in range(4):
             answer_nor = random.randint(1,256)
-            answer_hex.append(format(answer_nor, '02x').upper())
-            answer_bin.append(format(answer_nor, '08b'))
+            question.append(format(answer_nor, '02x').upper())
+            answer.append(format(answer_nor, '08b'))
 
-        answer_bin = ' '.join(answer_bin)
-        answer_hex = ' '.join(answer_hex)
+        answer = ' '.join(answer)
+        question = ' '.join(question)
 
-        return answer_hex, answer_bin
+        return answer, question
 
-    def all_in_one(self, answer_bin, answer_last=''):
+    def all_in_one(self, question):
         answer = [None]*4
 
-        answer[0], _ = self.not_gate(answer_last[0])
-        answer[1], _ = self.and_gate(answer_last[1], answer[0])
-        answer[2], _ = self.or_gate(answer_last[2], answer[1])
-        answer[3], _ = self.xor_gate(answer_last[3], answer[2])
+        answer[0], _ = self.not_gate([question[0]])
+        answer[1], _ = self.and_gate([question[1], answer[0]])
+        answer[2], _ = self.or_gate([question[2], answer[1]])
+        answer[3], _ = self.xor_gate([question[3], answer[2]])
 
         answer = ' '.join(answer)
 
         return answer
 
-    def last_codec(self, answer_bin, answer_last=''):
+    def last_codec(self, question):
         answer = [None]*4
 
-        answer[0], _ = self.xor_gate(answer_bin[0], answer_last[0])
-        answer[1], _ = self.and_gate(answer_bin[1], answer_last[1])
-        answer[2], _ = self.or_gate(answer_bin[2], answer_last[2])
-        answer[3], _ = self.not_gate(answer_bin[3])
+        answer[0], _ = self.xor_gate([question[0][0], question[1][0]])
+        answer[1], _ = self.and_gate([question[0][1], question[1][1]])
+        answer[2], _ = self.or_gate([question[0][2], question[1][2]])
+        answer[3], _ = self.not_gate([question[0][3]])
 
         answer = ' '.join(answer)
 
         return answer
 
-    def codec_handler(self, function, answer_last, answer_bin=''):
-        if function != 'last_codec':
-            answer_bin = format(random.randint(1,256), '08b')
-
+    def codec_handler(self, function, question):
         codec = {
             'not_gate': self.not_gate,
             'and_gate': self.and_gate,
@@ -109,4 +103,4 @@ class Level2Codec:
             'last_codec': self.last_codec
         }
 
-        return codec[function](answer_bin, answer_last)
+        return codec[function](question)

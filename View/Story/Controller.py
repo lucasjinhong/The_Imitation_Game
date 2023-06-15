@@ -1,5 +1,6 @@
 from View.Story.Level1 import Level1
 from View.Story.Level2 import Level2
+from View.Story.Level3 import Level3
 from View.Story.Game.Binary import Binary
 from View.Story.Game.Hexadecimal import Hexadecimal
 
@@ -12,6 +13,7 @@ class Controller:
         level = {
             '1': Level1(self.parameters).scene_handler,
             '2': Level2(self.parameters).scene_handler,
+            '3': Level3(self.parameters).scene_handler,
             'binary': Binary(self.parameters).scene_handler,
             'hexadecimal': Hexadecimal(self.parameters).scene_handler
         }
@@ -27,7 +29,7 @@ class Controller:
         chance =  games_config['chance']
         retry = games_config['retry']
         response = question['response']
-        answer = str(question['answer'])
+        answer = str(question['answer']).lower()
         solution = question['solution']
 
         self.parameters['config']['button_enter'] = True

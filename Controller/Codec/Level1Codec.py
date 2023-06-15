@@ -1,46 +1,48 @@
 import random
 
 class Level1Codec:
-    def dec_to_bin(self):
-        answer_dec = random.randint(1,256)
-        answer_bin = format(answer_dec, '08b')
+    def dec_to_bin(self, question):
+        question.append(random.randint(1,256))
+        answer = format(question[0], '08b')
 
-        return answer_dec, answer_bin
+        return answer, question
 
-    def bin_to_dec(self):
-        answer_dec = random.randint(1,256)
-        answer_bin = format(answer_dec, '08b')
+    def bin_to_dec(self, question):
+        question.append(random.randint(1,256))
+        answer = format(question[0], '08b')
 
-        return answer_bin, answer_dec
+        return answer, question
 
-    def dec_to_hex(self):
-        answer_dec = random.randint(1,65535)
-        answer_hex = format(answer_dec, '04x')
+    def dec_to_hex(self, question):
+        question.append(random.randint(1,65535))
+        answer = format(question[0], '04x')
 
-        return answer_dec, answer_hex
+        return answer, question
 
-    def hex_to_dec(self):
-        answer_dec = random.randint(1,65535)
-        answer_hex = format(answer_dec, '04x')
+    def hex_to_dec(self, question):
+        question.append(random.randint(1,65535))
+        answer = format(question[0], '04x')
 
-        return answer_hex, answer_dec
+        return answer, question
 
-    def future_codec(self):
+    def future_codec(self, question):
         answer = 'future'
-        question = ''
+        question_temp = []
         sentence = [ord(c) - 96 for c in answer]
 
         for word in sentence:
             codec_type = random.randint(1, 2)
 
             if codec_type == 1:
-                question += format(word, '08b') + ' '
+                question_temp.append(format(word, '08b'))
             else:
-                question += format(word, '04x') + ' '
+                question_temp.append(format(word, '04x').upper())
+
+        question.append(' '.join(question_temp))
 
         return answer, question
 
-    def codec_handler(self, function, answer_last, answer_bin=''):
+    def codec_handler(self, function, question):
         codec = {
             'dec_to_bin': self.dec_to_bin,
             'bin_to_dec': self.bin_to_dec,
@@ -49,4 +51,4 @@ class Level1Codec:
             'future_codec': self.future_codec
         }
 
-        return codec[function]()
+        return codec[function](question)
