@@ -34,7 +34,7 @@ class Controller:
 
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
-        self.parameters['config']['button_help'] = True
+        self.parameters['config']['button_help'] = False
 
         if response == answer:
             self.text += question['correct']
@@ -52,8 +52,8 @@ class Controller:
                 self.parameters['config']['button_enter'] = False
                 self.parameters['config']['button_conti'] = True
 
-            # elif chance <= 3:
-            #     self.parameters['config']['button_help'] = True
+            elif chance <= 5:
+                self.parameters['config']['button_help'] = True
 
         self.parameters['parameters_game']['config']['chance'] -= 1
 

@@ -56,7 +56,7 @@ class Level3:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '提示：多數決',
+                'hint': '提示：共有8位數字，每一位數字都傳了5次。在這5次裡面，只要出現3, 4, 5次以上的1，接收端就把這位數字決定為1，也就是這位數字接收到的5次訊號裡面，哪一個出現次數比較多，就把它定義成這個數字，這就是「多數決」。',
                 'solution': f'正確答案是：{answer}'
             },
             'config': {
@@ -224,15 +224,15 @@ class Level3:
         self.text += '("X"代表XNOR運算)\n'
         self.text += '("T"代表Not運算)\n\n'
 
-
         path = 'Model/Story/Level3/Scene6-2.txt'
         self.text += Controller.tools(path)
 
         self.text += f'\n\n現在，你需要讓 "{question[0]}" 可以順利傳完，且在傳遞的過程中，能量不能≤0，你需要用最少的Buffer來達到這個效果，你一開始的能量有6。\n'
-        self.text += '(T耗1能量，O耗2能量，N耗3能量，X耗4能量，而使用B可以補充6個能量，不能讓能量低於0)\n\n'
+        self.text += '\n(T耗1能量，O耗2能量，N耗3能量，X耗4能量，\n'
+        self.text += ' 而使用B可以補充6個能量，不能讓能量≤0)\n\n'
 
         self.text += f'請輸入 "{question[0]}" 加上Buffer後的英文代碼：\n'
-        self.text += f'(請輸入共{len(answer)}個英文代碼)\n'
+        self.text += f'(請輸入共{len(answer)}個英文代碼)'
 
         hint = '提示：\n'
         hint += 'T：1　O：2　N：3　X：4\n'
@@ -275,8 +275,18 @@ class Level3:
 
         self.text += '\n\n請將這個 "Xor, NAND, Not, Or, Not, XNOR, NOR, Not, Buffer, And" 邏輯順序，在不影響運算結果的情況下，用「最少的」邏輯閘順序來呈現：\n\n'
 
-        path = 'Model/Story/Level3/Scene7-ex.txt'
+        path = 'Model/Story/Level3/Scene7-ax.txt'
         self.text += Controller.tools(path)
+
+        hint = '提示：\n'
+        hint += 'Buffer在不考慮能量的情況下，可以忽略\n'
+        hint += 'Not, Not可以合併成Buffer\n'
+        hint += 'And, Not可以合併成NAND\n'
+        hint += 'Or, Not可以合併成NOR\n'
+        hint += 'Xor, Not可以合併成XNOR\n'
+        hint += 'NAND, Not可以合併成And\n'
+        hint += 'NOR, Not可以合併成Or\n'
+        hint += 'XNOR, Not可以合併成Xor\n'
 
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
@@ -294,7 +304,7 @@ class Level3:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '',
+                'hint': hint,
                 'solution': f'正確答案是：{answer}\n(Xor, And, NOR, XNOR, Or, And)'
             },
             'config': {
@@ -308,7 +318,10 @@ class Level3:
     def scene_7_1(self):
         answer = '26'
 
-        self.text += '(請輸入這6個邏輯閘的能量損耗加總)'
+        path = 'Model/Story/Level3/Scene7-ex.txt'
+        self.text += Controller.tools(path)
+
+        self.text += '\n(請輸入這6個邏輯閘的能量損耗加總)'
 
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
@@ -326,8 +339,8 @@ class Level3:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '',
-                'solution': f'正確答案是：{answer}\n(5 + 4 + 2 + 7 + 4 + 4 )'
+                'hint': '出現什麼邏輯閘，就把上面對應的數字加總',
+                'solution': f'正確答案是：{answer}\n(5 + 4 + 2 + 7 + 4 + 4)'
             },
             'config': {
                 'chance': 5,
@@ -343,8 +356,18 @@ class Level3:
         self.text += '請將這個"Xor, NAND, Not, Or, Not, XNOR, NOR, Not, Buffer, And"邏輯順序，在不影響運算結果的情況下，用「最快的」邏輯閘順序來呈現：\n'
         self.text += '(也就是能量損耗加總「最低」的邏輯)\n\n'
 
-        path = 'Model/Story/Level3/Scene7-ax.txt'
+        path = 'Model/Story/Level3/Scene7-bx.txt'
         self.text += Controller.tools(path)
+
+        hint = '提示：\n'
+        hint += 'Buffer在不考慮能量的情況下，可以忽略\n'
+        hint += 'Not, Not可以合併成Buffer\n'
+        hint += 'And, Not可以合併成NAND\n'
+        hint += 'Or, Not可以合併成NOR\n'
+        hint += 'Xor, Not可以合併成XNOR\n'
+        hint += 'NAND, Not可以合併成And\n'
+        hint += 'NOR, Not可以合併成Or\n'
+        hint += 'XNOR, Not可以合併成Xor\n'
 
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
@@ -362,7 +385,7 @@ class Level3:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '',
+                'hint': hint,
                 'solution': f'正確答案是：{answer}\n(Xor, NAND, Not, NOR, XNOR, NOR, Not, And)'
             },
             'config': {
@@ -376,7 +399,10 @@ class Level3:
     def scene_８_1(self):
         answer = '24'
 
-        self.text += '(請輸入這8個邏輯閘的能量損耗加總)'
+        path = 'Model/Story/Level3/Scene7-ex.txt'
+        self.text += Controller.tools(path)
+
+        self.text += '\n(請輸入這8個邏輯閘的能量損耗加總)'
 
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
@@ -394,7 +420,7 @@ class Level3:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '',
+                'hint': '出現什麼邏輯閘，就把上面對應的數字加總',
                 'solution': f'正確答案是：{answer}\n(5 + 2 + 1 + 2 + 7 + 2 + 1 + 4)'
             },
             'config': {
