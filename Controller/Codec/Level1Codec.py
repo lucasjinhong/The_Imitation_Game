@@ -8,8 +8,8 @@ class Level1Codec:
         return answer, question
 
     def bin_to_dec(self, question):
-        question.append(random.randint(1,256))
-        answer = format(question[0], '08b')
+        answer = random.randint(1,256)
+        question.append(format(answer, '08b'))
 
         return answer, question
 
@@ -20,8 +20,8 @@ class Level1Codec:
         return answer, question
 
     def hex_to_dec(self, question):
-        question.append(random.randint(1,65535))
-        answer = format(question[0], '04x')
+        answer = random.randint(1,65535)
+        question.append(format(answer, '04x'))
 
         return answer, question
 
