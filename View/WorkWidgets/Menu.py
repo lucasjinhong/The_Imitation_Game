@@ -27,7 +27,8 @@ class Menu(QtWidgets.QWidget):
         self.label.setText("請選擇一段故事")
 
         self.label_image = QtWidgets.QLabel(self)
-        self.label_image.setGeometry(QtCore.QRect(335, 100, 400, 100))
+        self.label_image.setGeometry(QtCore.QRect(290, 100, 400, 100))
+        self.label_image.setAlignment(QtCore.Qt.AlignHCenter)
         self.label_image.setObjectName("label_Image")
         # self.label_image.setScaledContents(True)  # 啟用圖片自動縮放
 
