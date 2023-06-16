@@ -10,7 +10,4 @@ Buffer這才想起，並說到：「對耶，我的能力就是看起來沒有�
 
 Not說：「因為Xor加上Not，就是XNOR，所以對於上面的解碼順序，其實我們只要按照Xor, XNOR, Xor, XNOR來解就好了。」
 
-註：
-Xor, ~~Not, Not~~, (Xor, Not), Xor, ~~Not, Not~~, (Xor, Not)
-
 「那我們就一起來解吧。」Not, Buffer異口同聲的講出了這句話。
