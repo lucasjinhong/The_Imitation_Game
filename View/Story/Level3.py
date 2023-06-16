@@ -73,7 +73,7 @@ class Level3:
         path = 'Model/Story/Level3/Scene3.txt'
         self.text += Controller.tools(path)
 
-        self.text += '\n\n經過無數個日夜的觀察和分析，在一個普通的日子裡，就在早上7點。'
+        self.text += '\n經過無數個日夜的觀察和分析，在一個普通的日子裡，就在早上7點。'
         self.text += '那時，他們正在密切監視NAND，突然，他們發現他的眼神中閃爍著一種不尋常的光芒。'
         self.text += f'他的身體開始震動，同時他們的程式也感測到了一組異常的2進制碼，也就是 "{question[0]}" 與 "{question[1]}" 。'
         self.text += '這兩組碼在他們的程式中形成了一個模式，與NAND的正常行為模式完全不同。\n\n'
@@ -176,10 +176,10 @@ class Level3:
         path = 'Model/Story/Level3/Scene5-2.txt'
         self.text += Controller.tools(path)
 
-        self.text += f'\n\n1. "{question[0]}"和"{question[1]}"經過Xor運算的結果為 A\n'
-        self.text += f'2. A 和"{question[2]}"經過XNOR運算的結果為 B\n'
-        self.text += f'3. B 和"{question[3]}"經過Xor運算後的結果為 C\n'
-        self.text += f'4. C 和"{question[4]}"經過XNOR運算後的結果為 D\n\n'
+        self.text += f'\n\n1. "{question[0]}" 和 "{question[1]}" 經過Xor運算的結果為 `A`\n'
+        self.text += f'2. `A` 和 "{question[2]}" 經過XNOR運算的結果為 `B`\n'
+        self.text += f'3. `B` 和 "{question[3]}" 經過Xor運算後的結果為 `C`\n'
+        self.text += f'4. `C` 和 "{question[4]}" 經過XNOR運算後的結果為 `D`\n\n'
 
         self.text += '請依序輸入A, B, C, D：\n'
         self.text += '(以8位數字為一組，每一組之間空一個半形空格，\n'
@@ -219,10 +219,10 @@ class Level3:
         self.text += Controller.tools(path)
 
         self.text += f'\n\n但這次沒有出現二進制碼，而是出現一群看不懂的英文字 "{question[0]}" ，但Not和Buffer知道，每一個字母代表著他們需要進行的運算。\n'
-        self.text += '"N"代表NAND運算，\n'
-        self.text += '"O"代表NOR運算，\n'
-        self.text += '"X"代表XNOR運算，\n'
-        self.text += '"T"代表Not運算。\n'
+        self.text += '("N"代表NAND運算)\n'
+        self.text += '("O"代表NOR運算)\n'
+        self.text += '("X"代表XNOR運算)\n'
+        self.text += '("T"代表Not運算)\n\n'
 
 
         path = 'Model/Story/Level3/Scene6-2.txt'
@@ -232,16 +232,13 @@ class Level3:
         self.text += '(T耗1能量，O耗2能量，N耗3能量，X耗4能量，而使用B可以補充6個能量，不能讓能量低於0)\n\n'
 
         self.text += f'請輸入 "{question[0]}" 加上Buffer後的英文代碼：\n'
-        self.text += '(EX：如果前三個字母是NOX，需要在NO和X中間加上B，變成NOBX，因為N會耗3個能量，O會耗2個能量，\n'
-        self.text += '這樣6 - 3 - 2 = 1，對下一個X來說能量不夠，所以需要在NO和X中間加上一個B)\n\n'
-        self.text += f'(請輸入共{len(answer)}個英文代碼)'
+        self.text += f'(請輸入共{len(answer)}個英文代碼)\n'
 
         hint = '提示：\n'
-        hint += 'T：1\n'
-        hint += 'O：2\n'
-        hint += 'N：3\n'
-        hint += 'X：4\n'
-        hint += '起始能量是6，每一次使用T, O, N, X都會耗掉相應的能量，而不能讓能量≤0，如果扣掉下一個傳遞能量會≤0，就加上一個B(Buffer)在前面'
+        hint += 'T：1　O：2　N：3　X：4\n'
+        hint += '起始能量是6，每一次使用T, O, N, X都會耗掉相應的能量，而不能讓能量≤0，如果扣掉下一個傳遞能量會≤0，就加上一個B(Buffer)在前面\n'
+        hint += '(EX：如果前三個字母是NOX，需要在NO和X中間加上B，變成NOBX，因為N會耗3個能量，O會耗2個能量，\n'
+        hint += '這樣6 - 3 - 2 = 1，對下一個X來說能量不夠，所以需要在NO和X中間加上一個B)\n'
 
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
@@ -273,10 +270,10 @@ class Level3:
     def scene_7(self):
         answer = 'gedhfe'
 
-        path = 'Model/Story/Level3/Scene6-1.txt'
+        path = 'Model/Story/Level3/Scene7.txt'
         self.text += Controller.tools(path)
 
-        self.text += '請將這個 "Xor, NAND, Not, Or, Not, XNOR, NOR, Not, Buffer, And" 邏輯順序，在不影響運算結果的情況下，用「最少的」邏輯閘順序來呈現：\n\n'
+        self.text += '\n\n請將這個 "Xor, NAND, Not, Or, Not, XNOR, NOR, Not, Buffer, And" 邏輯順序，在不影響運算結果的情況下，用「最少的」邏輯閘順序來呈現：\n\n'
 
         path = 'Model/Story/Level3/Scene7-ex.txt'
         self.text += Controller.tools(path)
