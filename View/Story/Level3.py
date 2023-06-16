@@ -264,6 +264,149 @@ class Level3:
         }
 
         return self.parameters, self.text
+    
+    def scene_7(self):
+        answer = 'gedhfe'
+
+        self.text += '請將這個"Xor, NAND, Not, Or, Not, XNOR, NOR, Not, Buffer, And"邏輯順序，在不影響運算結果的情況下，用「最少的」邏輯閘順序來呈現：\n\n'
+
+        path = 'Model/Story/Level3/Scene7-ex.txt'
+        self.text += Controller.tools(path)
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
+
+        self.parameters['function'] = 'scene_select'
+        self.parameters['parameters'] = {
+            'Level': '3',
+            'Scene': '7-1',
+            'last_question': '',
+            'last_answer': ''
+        }
+        self.parameters['parameters_game'] = {
+            'question': {
+                'response': '',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
+                'answer': answer,
+                'hint': '',
+                'solution': f'正確答案是：{answer}\n(Xor, And, NOR, XNOR, Or, And)'
+            },
+            'config': {
+                'chance': 5,
+                'retry': 0
+            }
+        }
+
+        return self.parameters, self.text
+
+    def scene_7_1(self):
+        answer = '26'
+
+        self.text += '(請輸入這6個邏輯閘的能量損耗加總)'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
+
+        self.parameters['function'] = 'scene_select'
+        self.parameters['parameters'] = {
+            'Level': '3',
+            'Scene': '8',
+            'last_question': '',
+            'last_answer': ''
+        }
+        self.parameters['parameters_game'] = {
+            'question': {
+                'response': '',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
+                'answer': answer,
+                'hint': '',
+                'solution': f'正確答案是：{answer}\n(5 + 4 + 2 + 7 + 4 + 4 )'
+            },
+            'config': {
+                'chance': 5,
+                'retry': 0
+            }
+        }
+
+        return self.parameters, self.text
+    
+    def scene_8(self):
+        answer = 'gcadhdae'
+
+        self.text += '請將這個"Xor, NAND, Not, Or, Not, XNOR, NOR, Not, Buffer, And"邏輯順序，在不影響運算結果的情況下，用「最快的」邏輯閘順序來呈現：\n\n'
+
+        path = 'Model/Story/Level3/Scene7-ex.txt'
+        self.text += Controller.tools(path)
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
+
+        self.parameters['function'] = 'scene_select'
+        self.parameters['parameters'] = {
+            'Level': '3',
+            'Scene': '8-1',
+            'last_question': '',
+            'last_answer': ''
+        }
+        self.parameters['parameters_game'] = {
+            'question': {
+                'response': '',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
+                'answer': answer,
+                'hint': '',
+                'solution': f'正確答案是：{answer}\n(Xor, NAND, Not, NOR, XNOR, NOR, Not, And)'
+            },
+            'config': {
+                'chance': 5,
+                'retry': 0
+            }
+        }
+
+        return self.parameters, self.text
+    
+    def scene_８_1(self):
+        answer = '24'
+
+        self.text += '(請輸入這8個邏輯閘的能量損耗加總)'
+
+        self.parameters['config']['button_enter'] = True
+        self.parameters['config']['button_conti'] = False
+
+        self.parameters['function'] = 'scene_select'
+        self.parameters['parameters'] = {
+            'Level': '3',
+            'Scene': 'after',
+            'last_question': '',
+            'last_answer': ''
+        }
+        self.parameters['parameters_game'] = {
+            'question': {
+                'response': '',
+                'correct': '(答案正確)',
+                'wrong': '(答案錯誤)',
+                'answer': answer,
+                'hint': '',
+                'solution': f'正確答案是：{answer}\n(5 + 2 + 1 + 2 + 7 + 2 + 1 + 4)'
+            },
+            'config': {
+                'chance': 5,
+                'retry': 0
+            }
+        }
+
+        return self.parameters, self.text
+    
+    def after_scene(self):
+        path = 'Model/Story/Level3/AfterScene.txt'
+        self.text += Controller.tools(path)
+
+        self.parameters['config']['button_enter'] = False
+        self.parameters['config']['button_conti'] = False
+
+        return self.parameters, self.text
 
     def scene_handler(self):
         resp_scene = self.parameters.get('parameters')['Scene']
@@ -274,7 +417,12 @@ class Level3:
             '3': self.scene_3,
             '4': self.scene_4,
             '5': self.scene_5,
-            '6': self.scene_6
+            '6': self.scene_6,
+            '7': self.scene_7,
+            '7-1': self.scene_7_1,
+            '8': self.scene_8,
+            '8-1': self.scene_8_1,
+            'after': self.after_scene
         }
 
         return scene[resp_scene]()

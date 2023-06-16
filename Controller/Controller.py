@@ -17,7 +17,4 @@ class Controller:
         if question is None:
             question = []
 
-        print(question)
-        ans = select[level](function, question)
-        print(ans)
-        return ans
+        return select[level](function, question)
