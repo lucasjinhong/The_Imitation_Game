@@ -25,6 +25,7 @@ class Main_Widget(QtWidgets.QWidget):
         self.execute()
 
         #init
+        self.button_help.setEnabled(False)
         self.button_enter.setEnabled(False)
         self.parameters = {
             'function': 'scene_select',
@@ -51,6 +52,7 @@ class Main_Widget(QtWidgets.QWidget):
             'config': {
                 'last_choose': '',
                 'next_choose': '',
+                'button_help': True,
                 'button_enter': True,
                 'button_conti': True
             }
@@ -143,7 +145,7 @@ class Main_Widget(QtWidgets.QWidget):
             self.back_window.emit()
 
     def button_help_click(self): # TODO
-        dlg = Dialog("測試: 測試", "此按鈕的功能仍在開發中")
+        dlg = Dialog('提示：', self.parameters['parameters_game']['question']['hint'])
         dlg.exec()
 
     def gate_select(self):
@@ -185,6 +187,7 @@ class Main_Widget(QtWidgets.QWidget):
 
         self.button_enter.setEnabled(False)     #預防二次點擊
         self.button_conti.setEnabled(True)
+        self.button_help.setEnabled(self.parameters['config']['button_help'])
 
         self.paragraph_to_type.append(text)
         self.button_conti_click()
