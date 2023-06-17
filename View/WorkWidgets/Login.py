@@ -16,8 +16,11 @@ class Login(QtWidgets.QWidget):
 
         self.label_image = self.create_label(0, 0, 1000, 500, "label_Image", None, image_path="./View/Resource/login/login")
         self.title = self.create_label(170, 20, 700, 200, "title", "模 仿 遊 戲", font_title)
-        self.label = self.create_label(170, 400, 210, 40, "label", "使用者名稱", font_label)
+        self.label = self.create_label(235, 400, 210, 40, "label", "使用者名稱", font_label)
         self.textEdit = self.create_text_edit(390, 400, 200, 35, "textEdit", font_label)
+
+        self.title.setStyleSheet("color: white;")
+        self.label.setStyleSheet("color: white;")
 
         self.button_confirm = QtWidgets.QPushButton(self)
         self.button_confirm.setGeometry(QtCore.QRect(640, 400, 100, 35))
