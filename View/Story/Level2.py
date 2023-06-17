@@ -219,6 +219,12 @@ class Level2:
         self.text += '(以8位數字為一組，每一組之間空一個半形空格，\n'
         self.text += ' Ex：00000000 11111111 00000000 11111111)'
 
+        hint = '提示：一位16進制碼為4位2進制碼(A: 10, B:11, C: 12, D: 13, E: 14, F: 15)\n'
+        hint += '0 -> 0000, 1 -> 0001, 2 -> 0010, 3 -> 0011, \n'
+        hint += '4 -> 0100, 5 -> 0101, 6 -> 0110, 7 -> 0111, \n'
+        hint += '8 -> 1000, 9 -> 1001, A -> 1010, B -> 1011, \n'
+        hint += 'C -> 1100, D -> 1101, E -> 1110, F -> 1111 \n'
+
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
 
@@ -235,7 +241,7 @@ class Level2:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '提示：一位16進制碼為4位2進制碼(A: 10, B:11, C: 12, D: 13, E: 14, F: 15)',
+                'hint': hint,
                 'solution': f'正確答案是：{answer}'
             },
             'config': {
@@ -257,10 +263,10 @@ class Level2:
         self.text += Controller.tools(path)
 
         self.text += '現在，請根據之前的訊息，填入下面這四個空格：\n\n'
-        self.text += f'1. 最一開始出現的是 {question[0]} ，經過Not能力運算後，得到 `A`\n'
-        self.text += f'2. 把 `A` 和 {question[1]} 進行And能力運算後，得到 `B`\n'
-        self.text += f'3. 把 `B` 和 {question[2]} 進行Or能力運算後，得到 `C`\n'
-        self.text += f'4. 把 `C` 和 {question[3]} 進行Xor能力運算後，得到 `D`\n\n'
+        self.text += f'1. 最一開始出現的是 "{question[0]}" ，經過Not能力運算後，得到 `A`\n'
+        self.text += f'2. 把 `A` 和 "{question[1]}" 進行And能力運算後，得到 `B`\n'
+        self.text += f'3. 把 `B` 和 "{question[2]}" 進行Or能力運算後，得到 `C`\n'
+        self.text += f'4. 把 `C` 和 "{question[3]}" 進行Xor能力運算後，得到 `D`\n\n'
         self.text += '請照順序輸入A, B, C, D：\n'
         self.text += '(以8位數字為一組，每一組之間空一個半形空格，\n'
         self.text += ' Ex：00000000 11111111 00000000 11111111)'
@@ -298,8 +304,10 @@ class Level2:
 
         self.text += '\n四位英雄對視一眼，他們知道，這一次的挑戰將比之前的還要艱鉅。'
         self.text += '這不僅僅是一場對他們理解力和運算能力的考驗，更是對他們堅韌意志的挑戰。\n\n'
-        self.text += f'他們再次集中全力，將先前從16進制轉換為的2進制碼 {self.last_question} 以及解答 {self.last_answer} ──── A, B, C, D '
-        self.text += '進行Not, And, Or, Xor的運算，然而，嘗試了幾次之後，很快就發現事情沒有這麼簡單。\n\n'
+        self.text += '他們再次集中全力，將先前從16進制轉換為的2進制碼，\n'
+        self.text += f'"{self.last_question}" 以及\n'
+        self.text += f'"{self.last_answer}" ──── A, B, C, D，\n'
+        self.text += '進行Not, And, Or, Xor的運算。然而，嘗試了幾次之後，很快就發現事情沒有這麼簡單。\n\n'
 
         path = 'Model/Story/Level2/Scene8-2.txt'
         self.text += Controller.tools(path)
@@ -320,7 +328,7 @@ class Level2:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': '4231',
-                'hint': '',
+                'hint': '提示：仔細咀嚼文字的意涵，對照到Not, And, Or, Xor的功能上面。',
                 'solution': '正確答案是：4231'
             },
             'config': {
@@ -340,9 +348,9 @@ class Level2:
         path = 'Model/Story/Level2/Scene9.txt'
         self.text += Controller.tools(path)
 
-        self.text += '\n請輸入這兩段數字，經過Xor And Or Not運算後的結果\n'
+        self.text += '\n請輸入這兩段數字，經過Xor And Or Not運算後的結果，\n'
         self.text += f' "{self.last_question}" 和\n'
-        self.text += f' "{self.last_answer}" ──── A, B, C, D\n'
+        self.text += f' "{self.last_answer}" ──── A, B, C, D，\n'
         self.text += '(由於Not英雄提出 D 組數字可能存在錯誤，該組數字已經被屏蔽。)\n\n'
 
         self.text += '(以8位數字為一組，每一組之間空一個半形空格，\n'

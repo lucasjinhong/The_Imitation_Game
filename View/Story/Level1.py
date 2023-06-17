@@ -54,7 +54,7 @@ class Level1:
 
         self.text += f'你再次看向那兩扇門，然後毫不猶豫地選擇了{next_choose}。\n'
         self.text += '當你走向那扇門時，你感到了一股奇特的能量，\n'
-        self.text += '它似乎在引導你，告訴你這一次的選擇將會有所不同。\n'
+        self.text += '它似乎在引導你，告訴你這一次的選擇將會有所不同。'
 
         self.parameters['config']['button_enter'] = False
         self.parameters['config']['button_conti'] = True
@@ -82,16 +82,20 @@ class Level1:
 
         self.text +='你默默地回想起自己在「真實」和「虛幻」路徑中遇到的各種挑戰和線索，\n'
         self.text +='嘗試將這些信息組合起來，以解開這個謎題。\n'
-        self.text +='你明白，每個挑戰都讓你有所成長，而這最後的謎題將是你成長的總結。\n'
+        self.text +='你明白，每個挑戰都讓你有所成長，而這最後的謎題將是你成長的總結。\n\n'
         self.text +='(請輸入6個英文字母，用已知的知識來解題)'
 
         hint = '提示：\n'
-        hint += '1.結果會是6個英文字\n'
-        hint += '2.英文數字對應表\n'
-        hint += '--------------------------------------------------------------------------------\n'
-        hint += '| a  b  c  d  e  f  g  f  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  s  y  z |\n'
-        hint += '| 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 |\n'
-        hint += '--------------------------------------------------------------------------------\n'
+        hint += '1. 結果會是6個英文字\n'
+        hint += '2. 英文數字對應表\n'
+        hint += '｜－　－　－　－　－　－　－　－　－　－　－　－　－｜\n\n'
+        hint += '　ａ　ｂ　ｃ　ｄ　ｅ　ｆ　ｇ　ｈ　ｉ\n'
+        hint += '　１　２　３　４　５　６　７　８　９\n\n'
+        hint += '　ｊ　　ｋ　　ｌ　　ｍ　　ｎ　　ｏ　　ｐ　　ｑ\n'
+        hint += '　１０　１１　１２　１３　１４　１５　１６　１７\n\n'
+        hint += '　ｒ　　ｓ　　ｔ　　ｕ　　ｖ　　ｗ　　ｘ　　ｙ　　ｚ\n'
+        hint += '　１８　１９　２０　２１　２２　２３　２４　２５　２６\n\n'
+        hint += '　－　　－　　－　　－　　－　　－　　－　　－　　－｜\n'
 
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False

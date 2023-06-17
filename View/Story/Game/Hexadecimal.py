@@ -26,7 +26,7 @@ class Hexadecimal:
         answer, question = Controller.codec('1', 'hex_to_dec')
 
         self.text += '[第一關]\n'
-        self.text += f'若一串十六進制數字為{question[0]}，它代表的十進制數字是多少？\n'
+        self.text += f'若一串十六進制數字為 "{question[0].upper()}" ，它代表的十進制數字是多少？\n'
         self.text += '(請輸入3或4或5位數字)'
 
         self.parameters['config']['button_enter'] = True
@@ -59,8 +59,8 @@ class Hexadecimal:
         answer, question = Controller.codec('1', 'dec_to_hex')
 
         self.text += '顯示板上又出現了一個更複雜的問題。\n\n'
-        self.text += '\n[第二關]\n'
-        self.text += f'若一串十進制數字為{question}，它代表的十六進制數字是多少？\n'
+        self.text += '[第二關]\n'
+        self.text += f'若一串十進制數字為 "{question[0]}"，它代表的十六進制數字是多少？\n'
         self.text += '(請輸入3或4位的數字或英文字)'
 
         self.parameters['config']['button_enter'] = True
@@ -79,7 +79,7 @@ class Hexadecimal:
                 'wrong': '(答案錯誤)',
                 'answer': answer,
                 'hint': '提示：反覆除以16，看餘數，並反向排列所有的餘數(英文字請用大寫)',
-                'solution': f'正確答案是：{answer}'
+                'solution': f'正確答案是：{answer.upper()}'
             },
             'config': {
                 'chance': 5,
@@ -95,7 +95,7 @@ class Hexadecimal:
         self.text += '最重要的應該就是這兩個觀念，\n'
         self.text += '但這時，螢幕上出現了第三題：\n\n'
 
-        self.text += '\n[第三關]\n'
+        self.text += '[第三關]\n'
         self.text += f'請問 1 + 1 = ？\n'
         self.text += '你心想，這個問題這麼簡單，毫不猶豫的輸入答案：\n'
         self.text += '(請輸入1或2位數字)'
@@ -115,7 +115,7 @@ class Hexadecimal:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': '2',
-                'hint': '',
+                'hint': '提示：「16進制的 1 + 1 = ？」',
                 'solution': '機器人：「我看你是完全不懂喔。」\n機器人：「從第一關開始吧。」'
             },
             'config': {

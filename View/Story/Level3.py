@@ -339,7 +339,7 @@ class Level3:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '出現什麼邏輯閘，就把上面對應的數字加總',
+                'hint': '提示：出現什麼邏輯閘，就把上面對應的數字加總',
                 'solution': f'正確答案是：{answer}\n(5 + 4 + 2 + 7 + 4 + 4)'
             },
             'config': {
