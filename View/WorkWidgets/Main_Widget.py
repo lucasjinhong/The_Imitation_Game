@@ -83,6 +83,7 @@ class Main_Widget(QtWidgets.QWidget):
 
     def setup_buttons(self):
         self.button_back = self.create_button(10, 445, 120, 35, "Button_Back", "回到主選單", self.button_back_click)
+        self.button_clear = self.create_button(680, 445, 100, 35, "Button_Clear", "Clear", self.button_clear_click)
         self.button_help = self.create_button(830, 50, 100, 35, "Button_Help", "Help", self.button_help_click)
         self.button_conti = self.create_button(830, 330, 100, 35, "Button_Cont", "繼續", self.button_conti_click)
         self.button_enter = self.create_button(830, 395, 100, 35, "Button_Enter", "Enter", self.button_enter_click)
@@ -106,15 +107,16 @@ class Main_Widget(QtWidgets.QWidget):
 
     def setup_textEdit(self):
         self.textEdit = QtWidgets.QTextEdit(self)
-        self.textEdit.setGeometry(QtCore.QRect(120, 390, 661, 45))
+        self.textEdit.setGeometry(QtCore.QRect(120, 390, 660, 45))
         self.textEdit.setFont(self.font_editor)
         self.textEdit.setObjectName("textEdit")
 
-        def clear_textEdit(event): # 讓點擊textEdit時，自動清除內容
-            self.textEdit.clear()
-            QtWidgets.QTextEdit.mousePressEvent(self.textEdit, event)
+        ##### 改成點Clear清掉
+        # def clear_textEdit(event): # 讓點擊textEdit時，自動清除內容
+        #     self.textEdit.clear()
+        #     QtWidgets.QTextEdit.mousePressEvent(self.textEdit, event)
 
-        self.textEdit.mousePressEvent = clear_textEdit
+        # self.textEdit.mousePressEvent = clear_textEdit
 
     def setup_scrollArea(self):
         self.scrollArea = QtWidgets.QScrollArea(self)
@@ -233,6 +235,9 @@ class Main_Widget(QtWidgets.QWidget):
             self.screen.setScaledContents(True)
         else:
             self.screen.clear()
+
+    def button_clear_click(self):
+        self.textEdit.clear()
 
     def update_text(self):
         if self.text_to_type:
