@@ -40,6 +40,11 @@ class Level3:
         self.text += f'請輸入接收端收到的訊號(用多數決)：\n'
         self.text += '(請輸入8位數字)'
 
+        hint = '提示：\n'
+        hint += '共有8位數字，每一位數字都傳了5次。\n'
+        hint += '在這5次裡面，只要出現3, 4, 5次以上的1，接收端就把這位數字決定為1，\n'
+        hint += '也就是這位數字接收到的5次訊號裡面，哪一個出現次數比較多，就把它定義成這個數字，這就是「多數決」。'
+
         self.parameters['config']['button_enter'] = True
         self.parameters['config']['button_conti'] = False
 
@@ -56,7 +61,7 @@ class Level3:
                 'correct': '(答案正確)',
                 'wrong': '(答案錯誤)',
                 'answer': answer,
-                'hint': '提示：共有8位數字，每一位數字都傳了5次。在這5次裡面，只要出現3, 4, 5次以上的1，接收端就把這位數字決定為1，也就是這位數字接收到的5次訊號裡面，哪一個出現次數比較多，就把它定義成這個數字，這就是「多數決」。',
+                'hint': hint,
                 'solution': f'正確答案是：{answer}'
             },
             'config': {
