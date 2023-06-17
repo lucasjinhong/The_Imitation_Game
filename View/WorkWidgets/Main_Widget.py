@@ -20,9 +20,15 @@ class Main_Widget(QtWidgets.QWidget):
         self.paragraph_index = 0
         self.paragraph_to_type = []
         self.current_text = ''
-        self.image_base_path = f"View/Resource/Level{self.story_index}"
         self.setup_ui()
         self.execute()
+
+        path_temp = f"View/Resource/Level{self.story_index}".split('/')
+        self.image_base_path = path_temp[0]
+        path_temp.pop(0)
+
+        for name in path_temp:
+            self.image_base_path = os.path.join(self.image_base_path, name)
 
         #init
         self.button_help.setEnabled(False)
