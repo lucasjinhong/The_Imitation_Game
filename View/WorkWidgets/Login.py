@@ -1,3 +1,4 @@
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from View.WorkWidgets.Dialog import Dialog
 
@@ -10,9 +11,20 @@ class Login(QtWidgets.QWidget):
         self.setup_ui()
 
     def setup_ui(self):
-        font_label = self.create_font("Arial", 20)
-        font_button = self.create_font("Arial", 20)
-        font_title = self.create_font("Arial", 108)
+        self.font_button = QtGui.QFont()
+        self.font_button = QtGui.QFont()
+        
+        if sys.platform == "win32":
+            # Win-125%
+            font_label = self.create_font("Microsoft JhengHei UI", 16, bold=True)
+            font_button = self.create_font("Microsoft JhengHei UI", 16)
+            font_title = self.create_font("Microsoft JhengHei UI", 70)
+        else:
+            # Mac
+            font_label = self.create_font("Arial", 20)
+            font_button = self.create_font("Arial", 20)
+            font_title = self.create_font("Arial", 108)
+        
 
         self.label_image = self.create_label(0, 0, 1000, 500, "label_Image", None, image_path="./View/Resource/login/login")
         self.title = self.create_label(170, 20, 700, 200, "title", "模 仿 遊 戲", font_title)
@@ -29,10 +41,12 @@ class Login(QtWidgets.QWidget):
         self.button_confirm.setText("確定")
         self.button_confirm.clicked.connect(self.button_click)
 
-    def create_font(self, family, size):
+    def create_font(self, family, size, bold=False):
         font = QtGui.QFont()
         font.setFamily(family)
         font.setPointSize(size)
+        if bold == True:
+            font.setBold(True)
         return font
 
     def create_label(self, x, y, width, height, obj_name, text, font=None, image_path=None):
@@ -53,18 +67,18 @@ class Login(QtWidgets.QWidget):
         return label
 
     def create_text_edit(self, x, y, width, height, obj_name, font):
-        textEdit = QtWidgets.QTextEdit(self)
+        textEdit = QtWidgets.QLineEdit(self)
         textEdit.setGeometry(QtCore.QRect(x, y, width, height))
         textEdit.setFont(font)
         textEdit.setObjectName(obj_name)
         return textEdit
 
     def button_click(self):
-        if len(self.textEdit.toPlainText()) > 0:
+        if len(self.textEdit.text()) > 0:
             self.show_menu()
         else:
             dlg = Dialog("Error", "User name 不可為空")
             dlg.exec()
 
     def show_menu(self):
-        self.switch_window.emit(self.textEdit.toPlainText())
+        self.switch_window.emit(self.textEdit.text())

@@ -75,11 +75,20 @@ class Main_Widget(QtWidgets.QWidget):
 
     def setup_fonts(self):
         self.font_button = QtGui.QFont()
-        self.font_button.setFamily("Arial")
-        self.font_button.setPointSize(16)
         self.font_editor = QtGui.QFont()
-        self.font_editor.setFamily("Arial")
-        self.font_editor.setPointSize(20)
+        
+        if sys.platform == "win32":
+            # Win-125%
+            self.font_button.setFamily("Microsoft JhengHei UI")
+            self.font_button.setPointSize(12)
+            self.font_editor.setFamily("Microsoft JhengHei UI")
+            self.font_editor.setPointSize(16)
+        else:
+            # Mac
+            self.font_button.setFamily("Arial")
+            self.font_button.setPointSize(16)
+            self.font_editor.setFamily("Arial")
+            self.font_editor.setPointSize(20)
 
     def setup_timer(self):
         self.timer = QtCore.QTimer(self)
@@ -108,8 +117,8 @@ class Main_Widget(QtWidgets.QWidget):
         self.screen.setGeometry(QtCore.QRect(800, 100, 175, 200))
         self.screen.setFont(self.font_button)
         self.screen.setObjectName("Screen")
-        self.screen.setText("I'm Screen")
-        self.screen.setStyleSheet("border: 1px solid black;")
+        #self.screen.setText("I'm Screen")
+        #self.screen.setStyleSheet("border: 1px solid black;")
 
     def setup_textEdit(self):
         self.textEdit = QtWidgets.QTextEdit(self)

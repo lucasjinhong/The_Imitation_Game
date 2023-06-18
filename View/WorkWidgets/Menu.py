@@ -1,4 +1,4 @@
-
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from View.Function.Story import Story
@@ -11,13 +11,22 @@ class Menu(QtWidgets.QWidget):
         super().__init__()
         self.setObjectName("Menu")
         self.story = Story()
-
+        
         font_button = QtGui.QFont()
-        font_button.setFamily("Arial")
-        font_button.setPointSize(18)
         font_label = QtGui.QFont()
-        font_label.setFamily("Arial")
-        font_label.setPointSize(24)
+        
+        if sys.platform == "win32":
+            # Win-125%
+            font_button.setFamily("Microsoft JhengHei UI")
+            font_button.setPointSize(12)
+            font_label.setFamily("Microsoft JhengHei UI")
+            font_label.setPointSize(16)
+        else:
+            # Mac
+            font_button.setFamily("Arial")
+            font_button.setPointSize(18)
+            font_label.setFamily("Arial")
+            font_label.setPointSize(24)
 
         self.label = QtWidgets.QLabel(self)
         self.label.setGeometry(QtCore.QRect(390, 30, 200, 40))

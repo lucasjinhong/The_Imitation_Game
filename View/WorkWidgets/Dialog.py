@@ -1,3 +1,4 @@
+import sys
 from PyQt5 import QtGui, QtWidgets
 
 class Dialog(QtWidgets.QDialog):
@@ -6,8 +7,12 @@ class Dialog(QtWidgets.QDialog):
         self.setWindowTitle(title)
         
         font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
+        if sys.platform == "win32":
+            font.setFamily("Microsoft JhengHei UI")
+            font.setPointSize(12)
+        else:
+            font.setFamily("Arial")
+            font.setPointSize(14)
         
         self.buttonBox = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.accepted.connect(self.accept)
