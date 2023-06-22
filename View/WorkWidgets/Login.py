@@ -5,9 +5,10 @@ from View.WorkWidgets.Dialog import Dialog
 class Login(QtWidgets.QWidget):
     switch_window = QtCore.pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self, scaleRate):
         super().__init__()
         self.setObjectName("login")
+        self.scaleRate = scaleRate
         self.setup_ui()
 
     def setup_ui(self):
@@ -15,10 +16,10 @@ class Login(QtWidgets.QWidget):
         self.font_button = QtGui.QFont()
         
         if sys.platform == "win32":
-            # Win-125%
-            font_label = self.create_font("Microsoft JhengHei UI", 16, bold=True)
-            font_button = self.create_font("Microsoft JhengHei UI", 16)
-            font_title = self.create_font("Microsoft JhengHei UI", 70)
+            # Win
+            font_label = self.create_font("Microsoft JhengHei UI", 20, bold=True)
+            font_button = self.create_font("Microsoft JhengHei UI", 20)
+            font_title = self.create_font("Microsoft JhengHei UI", 88)
         else:
             # Mac
             font_label = self.create_font("Arial", 20)
@@ -26,16 +27,16 @@ class Login(QtWidgets.QWidget):
             font_title = self.create_font("Arial", 108)
         
 
-        self.label_image = self.create_label(0, 0, 1000, 500, "label_Image", None, image_path="./View/Resource/login/login")
-        self.title = self.create_label(170, 20, 700, 200, "title", "模 仿 遊 戲", font_title)
-        self.label = self.create_label(235, 400, 210, 40, "label", "使用者名稱", font_label)
-        self.textEdit = self.create_text_edit(390, 400, 200, 35, "textEdit", font_label)
+        self.label_image = self.create_label(int(0*self.scaleRate), int(0*self.scaleRate), int(1000*self.scaleRate), int(500*self.scaleRate), "label_Image", None, image_path="./View/Resource/login/login")
+        self.title = self.create_label(int(170*self.scaleRate), int(20*self.scaleRate), int(700*self.scaleRate), int(200*self.scaleRate), "title", "模 仿 遊 戲", font_title)
+        self.label = self.create_label(int(235*self.scaleRate), int(400*self.scaleRate), int(210*self.scaleRate), int(40*self.scaleRate), "label", "使用者名稱", font_label)
+        self.textEdit = self.create_text_edit(int(390*self.scaleRate), int(400*self.scaleRate), int(200*self.scaleRate), int(35*self.scaleRate), "textEdit", font_label)
 
         self.title.setStyleSheet("color: white;")
         self.label.setStyleSheet("color: white;")
 
         self.button_confirm = QtWidgets.QPushButton(self)
-        self.button_confirm.setGeometry(QtCore.QRect(640, 400, 100, 35))
+        self.button_confirm.setGeometry(QtCore.QRect(int(640*self.scaleRate), int(400*self.scaleRate), int(100*self.scaleRate), int(35*self.scaleRate)))
         self.button_confirm.setFont(font_button)
         self.button_confirm.setObjectName("button_confirm")
         self.button_confirm.setText("確定")
