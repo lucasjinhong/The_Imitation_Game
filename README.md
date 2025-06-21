@@ -33,7 +33,7 @@ The game is divided into three parts, each with its own unique story and set of 
 1.  **Clone the repository:**
     ```sh
     git clone https://github.com/lucasjinhong/The_Imitation_Game.git
-    cd The_Imitation_Game-master
+    cd The_Imitation_Game
     ```
 
 2.  **Install the required package:**
